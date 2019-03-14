@@ -26,7 +26,7 @@ namespace IndividualProject.Model
 
 		public override string ToString()
 		{
-			return Title;
+			return $"ID:{Id}, {Title}, due {SubmissionDate}";
 		}
 	}
 }

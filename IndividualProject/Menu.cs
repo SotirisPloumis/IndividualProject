@@ -61,7 +61,7 @@ namespace IndividualProject
 						manager = new StudentManager();
 						break;
 					case MainOptions.crudAssignments:
-						Console.WriteLine("cruding assignments");
+						manager = new AssignmentManager();
 						break;
 					case MainOptions.crudTrainers:
 						manager = new TrainerManager();
