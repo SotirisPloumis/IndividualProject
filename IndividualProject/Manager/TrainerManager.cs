@@ -218,7 +218,8 @@ namespace IndividualProject.Manager
 			ConsoleUI.showMessage("2. Read");
 			ConsoleUI.showMessage("3. Update");
 			ConsoleUI.showMessage("4. Delete");
-			ConsoleUI.showMessage("0. Exit");
+			ConsoleUI.showMessage("0. Exit ");
+
 		}
 	}
 }
