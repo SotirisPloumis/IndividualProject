@@ -47,7 +47,7 @@ namespace IndividualProject.Manager
 					return;
 				}
 
-				int result = DBTrainer.Create(fname, lname, subject, out int id);
+				int result = DBTrainer.CreateTrainer(fname, lname, subject, out int id);
 
 				if (result == 0)
 				{
@@ -84,13 +84,26 @@ namespace IndividualProject.Manager
 		public void Update()
 		{
 			bool exit;
-			ConsoleUI.showMessage("select trainer to update, type 0 to exit");
+			
 
 			ICollection<Trainer> trainers = DBTrainer.ReadTrainers();
-			foreach (Trainer t in trainers)
+
+			if (trainers.Count() == 0)
 			{
-				ConsoleUI.showMessage(t);
+				ConsoleUI.showMessage("No trainers yet");
+				ConsoleUI.ReadKey();
+				ConsoleUI.Clear();
+				return;
 			}
+			else
+			{
+				ConsoleUI.showMessage("select trainer to update, type 0 to exit");
+				foreach (Trainer t in trainers)
+				{
+					ConsoleUI.showMessage(t);
+				}
+			}
+			
 
 			exit = ConsoleUI.GetInt(out int TrainerID, "give trainer id: ");
 			if (exit)
@@ -167,13 +180,26 @@ namespace IndividualProject.Manager
 		public void Delete()
 		{
 			bool exit;
-			ConsoleUI.showMessage("select trainer to delete, type 0 to exit");
+			
 
 			ICollection<Trainer> trainers = DBTrainer.ReadTrainers();
-			foreach (Trainer t in trainers)
+
+			if (trainers.Count() == 0)
 			{
-				ConsoleUI.showMessage(t);
+				ConsoleUI.showMessage("no trainers yet");
+				ConsoleUI.ReadKey();
+				ConsoleUI.Clear();
+				return;
 			}
+			else
+			{
+				ConsoleUI.showMessage("select trainer to delete, type 0 to exit");
+				foreach (Trainer t in trainers)
+				{
+					ConsoleUI.showMessage(t);
+				}
+			}
+			
 
 			exit = ConsoleUI.GetInt(out int TrainerID, "give trainer id: ");
 			if (exit)
@@ -218,8 +244,7 @@ namespace IndividualProject.Manager
 			ConsoleUI.showMessage("2. Read");
 			ConsoleUI.showMessage("3. Update");
 			ConsoleUI.showMessage("4. Delete");
-			ConsoleUI.showMessage("0. Exit ");
-
+			ConsoleUI.showMessage("0. Exit");
 		}
 	}
 }

@@ -53,7 +53,7 @@ namespace IndividualProject.Manager
 					return;
 				}
 
-				int result = DBStudent.Create(fname, lname, (DateTime)dob, fees, out int id);
+				int result = DBStudent.CreateStudent(fname, lname, (DateTime)dob, fees, out int id);
 
 				if (result == 0)
 				{
@@ -91,13 +91,24 @@ namespace IndividualProject.Manager
 		public void Update()
 		{
 			bool exit;
-			ConsoleUI.showMessage("select student to update, type 0 to exit");
 
 			ICollection<Student> students = DBStudent.ReadStudents();
-			foreach (Student s in students)
+			if (students.Count() == 0)
 			{
-				ConsoleUI.showMessage(s);
+				ConsoleUI.showMessage("No students yet");
+				ConsoleUI.ReadKey();
+				ConsoleUI.Clear();
+				return;
 			}
+			else
+			{
+				ConsoleUI.showMessage("select student to update, type 0 to exit");
+				foreach (Student s in students)
+				{
+					ConsoleUI.showMessage(s);
+				}
+			}
+			
 
 			exit = ConsoleUI.GetInt(out int StudentID, "give student id: ");
 			if (exit)
@@ -202,13 +213,25 @@ namespace IndividualProject.Manager
 		public void Delete()
 		{
 			bool exit;
-			ConsoleUI.showMessage("select student to delete, type 0 to exit");
+			
 
 			ICollection<Student> students = DBStudent.ReadStudents();
-			foreach (Student s in students)
+			if (students.Count() == 0)
 			{
-				ConsoleUI.showMessage(s);
+				ConsoleUI.showMessage("No students yet");
+				ConsoleUI.ReadKey();
+				ConsoleUI.Clear();
+				return;
 			}
+			else
+			{
+				ConsoleUI.showMessage("select student to delete, type 0 to exit");
+				foreach (Student s in students)
+				{
+					ConsoleUI.showMessage(s);
+				}
+			}
+			
 
 			exit = ConsoleUI.GetInt(out int StudentID, "give student id: ");
 			if (exit)
@@ -223,8 +246,8 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				Console.WriteLine($"NO STUDENT FOUND WITH ID: {StudentID}");
-				Console.ReadKey();
+				ConsoleUI.showMessage($"NO STUDENT FOUND WITH ID: {StudentID}");
+				ConsoleUI.ReadKey();
 				return;
 			}
 

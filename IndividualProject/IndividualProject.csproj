@@ -52,8 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB\DBCourse.cs" />
     <Compile Include="DB\DBStudent.cs" />
     <Compile Include="DB\DBTrainer.cs" />
+    <Compile Include="Manager\CourseManager.cs" />
     <Compile Include="Manager\IManager.cs" />
     <Compile Include="Manager\StudentManager.cs" />
     <Compile Include="Manager\TrainerManager.cs" />

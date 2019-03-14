@@ -27,8 +27,12 @@ namespace IndividualProject.UI
 
 		public static bool GetString(out string input, string message = "")
 		{
-			Console.Write(message);
-			input = Console.ReadLine();
+			do
+			{
+				Console.Write(message);
+				input = Console.ReadLine();
+			} while (input.Equals(""));
+			
 			return input.Equals("0");
 		}
 		

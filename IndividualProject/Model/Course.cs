@@ -28,7 +28,7 @@ namespace IndividualProject.Model
 
 		public override string ToString()
 		{
-			return $"{Title}, {Stream}, {Type}";
+			return $"ID:{Id}, {Title}, {Stream}, {Type}, starts {StartDate}, ends {EndDate}";
 		}
 	}
 }

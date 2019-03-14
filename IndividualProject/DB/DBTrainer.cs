@@ -10,7 +10,7 @@ namespace IndividualProject.DB
 {
 	public static class DBTrainer
 	{
-		public static int Create(string fname, string lname, string subject, out int trainerID)
+		public static int CreateTrainer(string fname, string lname, string subject, out int trainerID)
 		{
 			Trainer t = new Trainer()
 			{

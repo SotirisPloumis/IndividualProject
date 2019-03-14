@@ -22,7 +22,7 @@ namespace IndividualProject.Model
 
 		public override string ToString()
 		{
-			return $"{FirstName} {LastName}";
+			return $"ID:{Id}, {FirstName} {LastName}, teaches {Subject}";
 		}
 	}
 }

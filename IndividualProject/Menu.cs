@@ -55,7 +55,7 @@ namespace IndividualProject
 				switch (mainOption)
 				{
 					case MainOptions.crudCourses:
-						Console.WriteLine("cruding courses");
+						manager = new CourseManager();
 						break;
 					case MainOptions.crudStudents:
 						manager = new StudentManager();
