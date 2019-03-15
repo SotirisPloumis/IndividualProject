@@ -65,11 +65,11 @@ namespace IndividualProject.Manager
 
 				if (result == 0)
 				{
-					ConsoleUI.showMessage("assignment could NOT be saved");
+					ConsoleUI.showLine("assignment could NOT be saved");
 				}
 				else
 				{
-					ConsoleUI.showMessage($"assignment created with id: {id}");
+					ConsoleUI.showLine($"assignment created with id: {id}");
 				}
 
 				ConsoleUI.ReadKey();
@@ -82,13 +82,13 @@ namespace IndividualProject.Manager
 			ICollection<Assignment> assignments = DBAssignment.ReadAssignments();
 			if (assignments.Count() == 0)
 			{
-				ConsoleUI.showMessage("No assignments yet");
+				ConsoleUI.showLine("No assignments yet");
 			}
 			else
 			{
 				foreach (Assignment a in assignments)
 				{
-					ConsoleUI.showMessage(a);
+					ConsoleUI.showLine(a);
 				}
 			}
 
@@ -103,17 +103,17 @@ namespace IndividualProject.Manager
 			ICollection<Assignment> assignments = DBAssignment.ReadAssignments();
 			if (assignments.Count() == 0)
 			{
-				ConsoleUI.showMessage("No assignments yet");
+				ConsoleUI.showLine("No assignments yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showMessage("select assignment to update, type 0 to exit");
+				ConsoleUI.showLine("select assignment to update, type 0 to exit");
 				foreach (Assignment s in assignments)
 				{
-					ConsoleUI.showMessage(s);
+					ConsoleUI.showLine(s);
 				}
 			}
 
@@ -133,19 +133,19 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showMessage($"NO ASSIGNMENT FOUND WITH ID: {AssignmentID}");
+				ConsoleUI.showLine($"NO ASSIGNMENT FOUND WITH ID: {AssignmentID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
 
-			ConsoleUI.showMessage($"you selected to edit assignment: {assignment.Title}");
+			ConsoleUI.showLine($"you selected to edit assignment: {assignment.Title}");
 
-			ConsoleUI.showMessage($"select attribute to edit, type 0 anytime to exit");
-			ConsoleUI.showMessage("1. Title");
-			ConsoleUI.showMessage("2. Description");
-			ConsoleUI.showMessage("3. Date of submission");
-			ConsoleUI.showMessage("4. Oral Mark");
-			ConsoleUI.showMessage("5. Total Mark");
+			ConsoleUI.showLine($"select attribute to edit, type 0 anytime to exit");
+			ConsoleUI.showLine("1. Title");
+			ConsoleUI.showLine("2. Description");
+			ConsoleUI.showLine("3. Date of submission");
+			ConsoleUI.showLine("4. Oral Mark");
+			ConsoleUI.showLine("5. Total Mark");
 
 			exit = ConsoleUI.GetInt(out int choice);
 			if (exit)
@@ -219,11 +219,11 @@ namespace IndividualProject.Manager
 
 			if (result == 0)
 			{
-				ConsoleUI.showMessage("assignment update failed");
+				ConsoleUI.showLine("assignment update failed");
 			}
 			else
 			{
-				ConsoleUI.showMessage("assignment updated successfully");
+				ConsoleUI.showLine("assignment updated successfully");
 			}
 			ConsoleUI.ReadKey();
 
@@ -237,17 +237,17 @@ namespace IndividualProject.Manager
 			ICollection<Assignment> assignments = DBAssignment.ReadAssignments();
 			if (assignments.Count() == 0)
 			{
-				ConsoleUI.showMessage("No assignments yet");
+				ConsoleUI.showLine("No assignments yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showMessage("select assignment to delete, type 0 to exit");
+				ConsoleUI.showLine("select assignment to delete, type 0 to exit");
 				foreach (Assignment a in assignments)
 				{
-					ConsoleUI.showMessage(a);
+					ConsoleUI.showLine(a);
 				}
 			}
 
@@ -265,7 +265,7 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showMessage($"NO ASSIGNMENT FOUND WITH ID: {AssignmentID}");
+				ConsoleUI.showLine($"NO ASSIGNMENT FOUND WITH ID: {AssignmentID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -278,11 +278,11 @@ namespace IndividualProject.Manager
 				result = DBAssignment.DeleteAssignment(AssignmentID);
 				if (result == 0)
 				{
-					ConsoleUI.showMessage("delete failed");
+					ConsoleUI.showLine("delete failed");
 				}
 				else
 				{
-					ConsoleUI.showMessage("assignment deleted successfully");
+					ConsoleUI.showLine("assignment deleted successfully");
 				}
 				ConsoleUI.ReadKey();
 			}
@@ -290,12 +290,12 @@ namespace IndividualProject.Manager
 
 		public void ShowCRUDMenu()
 		{
-			ConsoleUI.showMessage($"select action for assignments");
-			ConsoleUI.showMessage("1. Create");
-			ConsoleUI.showMessage("2. Read");
-			ConsoleUI.showMessage("3. Update");
-			ConsoleUI.showMessage("4. Delete");
-			ConsoleUI.showMessage("0. Exit");
+			ConsoleUI.showLine($"select action for assignments");
+			ConsoleUI.showLine("1. Create");
+			ConsoleUI.showLine("2. Read");
+			ConsoleUI.showLine("3. Update");
+			ConsoleUI.showLine("4. Delete");
+			ConsoleUI.showLine("0. Exit");
 		}
 	}
 }

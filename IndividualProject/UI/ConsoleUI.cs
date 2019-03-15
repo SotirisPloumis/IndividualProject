@@ -106,9 +106,27 @@ namespace IndividualProject.UI
 			
 		}
 
+		public static void showLine<T>(T message)
+		{
+			if (message == null)
+			{
+				Console.WriteLine();
+			}
+			else
+			{
+				Console.WriteLine(message.ToString());
+			}
+			
+		}
+
+		public static void changeLine()
+		{
+			Console.WriteLine();
+		}
+
 		public static void showMessage<T>(T message)
 		{
-			Console.WriteLine(message.ToString());
+			Console.Write(message.ToString());
 		}
 
 		public static void Clear()

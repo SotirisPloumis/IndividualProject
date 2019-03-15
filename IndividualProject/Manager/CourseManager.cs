@@ -65,11 +65,11 @@ namespace IndividualProject.Manager
 
 				if (result == 0)
 				{
-					ConsoleUI.showMessage("course could NOT be saved");
+					ConsoleUI.showLine("course could NOT be saved");
 				}
 				else
 				{
-					ConsoleUI.showMessage($"course created with id: {id}");
+					ConsoleUI.showLine($"course created with id: {id}");
 				}
 
 				ConsoleUI.ReadKey();
@@ -82,13 +82,13 @@ namespace IndividualProject.Manager
 			ICollection<Course> courses = DBCourse.ReadCourses();
 			if (courses.Count() == 0)
 			{
-				ConsoleUI.showMessage("No courses yet");
+				ConsoleUI.showLine("No courses yet");
 			}
 			else
 			{
 				foreach (Course c in courses)
 				{
-					ConsoleUI.showMessage(c);
+					ConsoleUI.showLine(c);
 				}
 			}
 
@@ -105,17 +105,17 @@ namespace IndividualProject.Manager
 
 			if (courses.Count() == 0)
 			{
-				ConsoleUI.showMessage("no courses yet");
+				ConsoleUI.showLine("no courses yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showMessage("select course to update, type 0 to exit");
+				ConsoleUI.showLine("select course to update, type 0 to exit");
 				foreach (Course c in courses)
 				{
-					ConsoleUI.showMessage(c);
+					ConsoleUI.showLine(c);
 				}
 			}
 			
@@ -135,19 +135,19 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showMessage($"NO COURSE FOUND WITH ID: {CourseID}");
+				ConsoleUI.showLine($"NO COURSE FOUND WITH ID: {CourseID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
 
-			ConsoleUI.showMessage($"you selected to edit course: {course.Title}");
+			ConsoleUI.showLine($"you selected to edit course: {course.Title}");
 
-			ConsoleUI.showMessage($"select attribute to edit, type 0 anytime to exit");
-			ConsoleUI.showMessage("1. Title");
-			ConsoleUI.showMessage("2. Stream");
-			ConsoleUI.showMessage("3. Type");
-			ConsoleUI.showMessage("4. Date of start");
-			ConsoleUI.showMessage("5. Date of end");
+			ConsoleUI.showLine($"select attribute to edit, type 0 anytime to exit");
+			ConsoleUI.showLine("1. Title");
+			ConsoleUI.showLine("2. Stream");
+			ConsoleUI.showLine("3. Type");
+			ConsoleUI.showLine("4. Date of start");
+			ConsoleUI.showLine("5. Date of end");
 
 			exit = ConsoleUI.GetInt(out int choice);
 			if (exit)
@@ -221,11 +221,11 @@ namespace IndividualProject.Manager
 
 			if (result == 0)
 			{
-				ConsoleUI.showMessage("course update failed");
+				ConsoleUI.showLine("course update failed");
 			}
 			else
 			{
-				ConsoleUI.showMessage("course updated successfully");
+				ConsoleUI.showLine("course updated successfully");
 			}
 			ConsoleUI.ReadKey();
 
@@ -240,17 +240,17 @@ namespace IndividualProject.Manager
 
 			if (courses.Count() == 0)
 			{
-				ConsoleUI.showMessage("no courses yet");
+				ConsoleUI.showLine("no courses yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showMessage("select course to delete, type 0 to exit");
+				ConsoleUI.showLine("select course to delete, type 0 to exit");
 				foreach (Course c in courses)
 				{
-					ConsoleUI.showMessage(c);
+					ConsoleUI.showLine(c);
 				}
 			}
 			
@@ -268,7 +268,7 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showMessage($"NO COURSE FOUND WITH ID: {CourseID}");
+				ConsoleUI.showLine($"NO COURSE FOUND WITH ID: {CourseID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -281,11 +281,11 @@ namespace IndividualProject.Manager
 				result = DBCourse.DeleteCourse(CourseID);
 				if (result == 0)
 				{
-					ConsoleUI.showMessage("delete failed");
+					ConsoleUI.showLine("delete failed");
 				}
 				else
 				{
-					ConsoleUI.showMessage("course deleted successfully");
+					ConsoleUI.showLine("course deleted successfully");
 				}
 				ConsoleUI.ReadKey();
 			}
@@ -293,12 +293,12 @@ namespace IndividualProject.Manager
 
 		public void ShowCRUDMenu()
 		{
-			ConsoleUI.showMessage($"select action for courses");
-			ConsoleUI.showMessage("1. Create");
-			ConsoleUI.showMessage("2. Read");
-			ConsoleUI.showMessage("3. Update");
-			ConsoleUI.showMessage("4. Delete");
-			ConsoleUI.showMessage("0. Exit");
+			ConsoleUI.showLine($"select action for courses");
+			ConsoleUI.showLine("1. Create");
+			ConsoleUI.showLine("2. Read");
+			ConsoleUI.showLine("3. Update");
+			ConsoleUI.showLine("4. Delete");
+			ConsoleUI.showLine("0. Exit");
 		}
 	}
 }

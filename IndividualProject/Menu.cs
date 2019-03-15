@@ -67,7 +67,7 @@ namespace IndividualProject
 						manager = new TrainerManager();
 						break;
 					case MainOptions.crudStudentsPerCourse:
-						Console.WriteLine("students per course");
+						manager = new StudentPerCourseManager();
 						break;
 					case MainOptions.crudTrainersPerCourse:
 						Console.WriteLine("trainers per course");

@@ -57,11 +57,11 @@ namespace IndividualProject.Manager
 
 				if (result == 0)
 				{
-					ConsoleUI.showMessage("student could NOT be saved");
+					ConsoleUI.showLine("student could NOT be saved");
 				}
 				else
 				{
-					ConsoleUI.showMessage($"student created with id: {id}");
+					ConsoleUI.showLine($"student created with id: {id}");
 				}
 
 				ConsoleUI.ReadKey();
@@ -74,13 +74,13 @@ namespace IndividualProject.Manager
 			ICollection<Student> students = DBStudent.ReadStudents();
 			if (students.Count() == 0)
 			{
-				ConsoleUI.showMessage("No students yet");
+				ConsoleUI.showLine("No students yet");
 			}
 			else
 			{
 				foreach (Student s in students)
 				{
-					ConsoleUI.showMessage(s);
+					ConsoleUI.showLine(s);
 				}
 			}
 			
@@ -95,17 +95,17 @@ namespace IndividualProject.Manager
 			ICollection<Student> students = DBStudent.ReadStudents();
 			if (students.Count() == 0)
 			{
-				ConsoleUI.showMessage("No students yet");
+				ConsoleUI.showLine("No students yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showMessage("select student to update, type 0 to exit");
+				ConsoleUI.showLine("select student to update, type 0 to exit");
 				foreach (Student s in students)
 				{
-					ConsoleUI.showMessage(s);
+					ConsoleUI.showLine(s);
 				}
 			}
 			
@@ -125,18 +125,18 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showMessage($"NO STUDENT FOUND WITH ID: {StudentID}");
+				ConsoleUI.showLine($"NO STUDENT FOUND WITH ID: {StudentID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
 			
-			ConsoleUI.showMessage($"you selected to edit student: {student.FirstName} {student.LastName}");
+			ConsoleUI.showLine($"you selected to edit student: {student.FirstName} {student.LastName}");
 
-			ConsoleUI.showMessage($"select attribute to edit, type 0 anytime to exit");
-			ConsoleUI.showMessage("1. First name");
-			ConsoleUI.showMessage("2. Last name");
-			ConsoleUI.showMessage("3. Date of birth");
-			ConsoleUI.showMessage("4. Fees");
+			ConsoleUI.showLine($"select attribute to edit, type 0 anytime to exit");
+			ConsoleUI.showLine("1. First name");
+			ConsoleUI.showLine("2. Last name");
+			ConsoleUI.showLine("3. Date of birth");
+			ConsoleUI.showLine("4. Fees");
 
 			exit = ConsoleUI.GetInt(out int choice);
 			if (exit)
@@ -200,11 +200,11 @@ namespace IndividualProject.Manager
 
 			if (result == 0)
 			{
-				ConsoleUI.showMessage("student update failed");
+				ConsoleUI.showLine("student update failed");
 			}
 			else
 			{
-				ConsoleUI.showMessage("student updated successfully");
+				ConsoleUI.showLine("student updated successfully");
 			}
 			ConsoleUI.ReadKey();
 
@@ -218,17 +218,17 @@ namespace IndividualProject.Manager
 			ICollection<Student> students = DBStudent.ReadStudents();
 			if (students.Count() == 0)
 			{
-				ConsoleUI.showMessage("No students yet");
+				ConsoleUI.showLine("No students yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showMessage("select student to delete, type 0 to exit");
+				ConsoleUI.showLine("select student to delete, type 0 to exit");
 				foreach (Student s in students)
 				{
-					ConsoleUI.showMessage(s);
+					ConsoleUI.showLine(s);
 				}
 			}
 			
@@ -246,7 +246,7 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showMessage($"NO STUDENT FOUND WITH ID: {StudentID}");
+				ConsoleUI.showLine($"NO STUDENT FOUND WITH ID: {StudentID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -259,11 +259,11 @@ namespace IndividualProject.Manager
 				result = DBStudent.DeleteStudent(StudentID);
 				if (result == 0)
 				{
-					ConsoleUI.showMessage("delete failed");
+					ConsoleUI.showLine("delete failed");
 				}
 				else
 				{
-					ConsoleUI.showMessage("student deleted successfully");
+					ConsoleUI.showLine("student deleted successfully");
 				}
 				ConsoleUI.ReadKey();
 			}
@@ -271,12 +271,12 @@ namespace IndividualProject.Manager
 
 		public void ShowCRUDMenu()
 		{
-			ConsoleUI.showMessage($"select action for students");
-			ConsoleUI.showMessage("1. Create");
-			ConsoleUI.showMessage("2. Read");
-			ConsoleUI.showMessage("3. Update");
-			ConsoleUI.showMessage("4. Delete");
-			ConsoleUI.showMessage("0. Exit");
+			ConsoleUI.showLine($"select action for students");
+			ConsoleUI.showLine("1. Create");
+			ConsoleUI.showLine("2. Read");
+			ConsoleUI.showLine("3. Update");
+			ConsoleUI.showLine("4. Delete");
+			ConsoleUI.showLine("0. Exit");
 		}
 	}
 }

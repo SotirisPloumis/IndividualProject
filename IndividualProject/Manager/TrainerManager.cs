@@ -51,11 +51,11 @@ namespace IndividualProject.Manager
 
 				if (result == 0)
 				{
-					ConsoleUI.showMessage("trainer could NOT be saved");
+					ConsoleUI.showLine("trainer could NOT be saved");
 				}
 				else
 				{
-					ConsoleUI.showMessage($"trainer created with id: {id}");
+					ConsoleUI.showLine($"trainer created with id: {id}");
 				}
 
 				ConsoleUI.ReadKey();
@@ -68,13 +68,13 @@ namespace IndividualProject.Manager
 			ICollection<Trainer> trainers = DBTrainer.ReadTrainers();
 			if (trainers.Count() == 0)
 			{
-				ConsoleUI.showMessage("no trainers yet");
+				ConsoleUI.showLine("no trainers yet");
 			}
 			else
 			{
 				foreach (Trainer t in trainers)
 				{
-					ConsoleUI.showMessage(t);
+					ConsoleUI.showLine(t);
 				}
 			}
 			ConsoleUI.ReadKey();
@@ -90,17 +90,17 @@ namespace IndividualProject.Manager
 
 			if (trainers.Count() == 0)
 			{
-				ConsoleUI.showMessage("No trainers yet");
+				ConsoleUI.showLine("No trainers yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showMessage("select trainer to update, type 0 to exit");
+				ConsoleUI.showLine("select trainer to update, type 0 to exit");
 				foreach (Trainer t in trainers)
 				{
-					ConsoleUI.showMessage(t);
+					ConsoleUI.showLine(t);
 				}
 			}
 			
@@ -120,17 +120,17 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showMessage($"NO TRAINER FOUND WITH ID: {TrainerID}");
+				ConsoleUI.showLine($"NO TRAINER FOUND WITH ID: {TrainerID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
 
-			ConsoleUI.showMessage($"you selected to edit trainer: {trainer.FirstName} {trainer.LastName}");
+			ConsoleUI.showLine($"you selected to edit trainer: {trainer.FirstName} {trainer.LastName}");
 
-			ConsoleUI.showMessage($"select attribute to edit, type 0 anytime to exit");
-			ConsoleUI.showMessage("1. First name");
-			ConsoleUI.showMessage("2. Last name");
-			ConsoleUI.showMessage("3. Subject");
+			ConsoleUI.showLine($"select attribute to edit, type 0 anytime to exit");
+			ConsoleUI.showLine("1. First name");
+			ConsoleUI.showLine("2. Last name");
+			ConsoleUI.showLine("3. Subject");
 
 			exit = ConsoleUI.GetInt(out int choice);
 			if (exit)
@@ -167,11 +167,11 @@ namespace IndividualProject.Manager
 
 			if (result == 0)
 			{
-				ConsoleUI.showMessage("student update failed");
+				ConsoleUI.showLine("student update failed");
 			}
 			else
 			{
-				ConsoleUI.showMessage("student updated successfully");
+				ConsoleUI.showLine("student updated successfully");
 			}
 			ConsoleUI.ReadKey();
 
@@ -186,17 +186,17 @@ namespace IndividualProject.Manager
 
 			if (trainers.Count() == 0)
 			{
-				ConsoleUI.showMessage("no trainers yet");
+				ConsoleUI.showLine("no trainers yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showMessage("select trainer to delete, type 0 to exit");
+				ConsoleUI.showLine("select trainer to delete, type 0 to exit");
 				foreach (Trainer t in trainers)
 				{
-					ConsoleUI.showMessage(t);
+					ConsoleUI.showLine(t);
 				}
 			}
 			
@@ -214,7 +214,7 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showMessage($"NO TRAINER FOUND WITH ID: {TrainerID}");
+				ConsoleUI.showLine($"NO TRAINER FOUND WITH ID: {TrainerID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -227,11 +227,11 @@ namespace IndividualProject.Manager
 				result = DBTrainer.DeleteTrainer(TrainerID);
 				if (result == 0)
 				{
-					ConsoleUI.showMessage("delete failed");
+					ConsoleUI.showLine("delete failed");
 				}
 				else
 				{
-					ConsoleUI.showMessage("trainer deleted successfully");
+					ConsoleUI.showLine("trainer deleted successfully");
 				}
 				ConsoleUI.ReadKey();
 			}
@@ -239,12 +239,12 @@ namespace IndividualProject.Manager
 
 		public void ShowCRUDMenu()
 		{
-			ConsoleUI.showMessage($"select action for trainers");
-			ConsoleUI.showMessage("1. Create");
-			ConsoleUI.showMessage("2. Read");
-			ConsoleUI.showMessage("3. Update");
-			ConsoleUI.showMessage("4. Delete");
-			ConsoleUI.showMessage("0. Exit");
+			ConsoleUI.showLine($"select action for trainers");
+			ConsoleUI.showLine("1. Create");
+			ConsoleUI.showLine("2. Read");
+			ConsoleUI.showLine("3. Update");
+			ConsoleUI.showLine("4. Delete");
+			ConsoleUI.showLine("0. Exit");
 		}
 	}
 }

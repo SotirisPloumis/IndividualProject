@@ -55,11 +55,13 @@
     <Compile Include="DB\DBAssignment.cs" />
     <Compile Include="DB\DBCourse.cs" />
     <Compile Include="DB\DBStudent.cs" />
+    <Compile Include="DB\DBStudentsPerCourse.cs" />
     <Compile Include="DB\DBTrainer.cs" />
     <Compile Include="Manager\AssignmentManager.cs" />
     <Compile Include="Manager\CourseManager.cs" />
     <Compile Include="Manager\IManager.cs" />
     <Compile Include="Manager\StudentManager.cs" />
+    <Compile Include="Manager\StudentPerCourseManager.cs" />
     <Compile Include="Manager\TrainerManager.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Migrations\201903080950526_m1.cs" />
