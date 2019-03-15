@@ -53,12 +53,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DB\DBAssignment.cs" />
+    <Compile Include="DB\DBAssignmentsPerCourse.cs" />
     <Compile Include="DB\DBCourse.cs" />
     <Compile Include="DB\DBStudent.cs" />
     <Compile Include="DB\DBStudentsPerCourse.cs" />
     <Compile Include="DB\DBTrainer.cs" />
     <Compile Include="DB\DBTrainersPerCourse.cs" />
     <Compile Include="Manager\AssignmentManager.cs" />
+    <Compile Include="Manager\AssignmentPerCourseManager.cs" />
     <Compile Include="Manager\CourseManager.cs" />
     <Compile Include="Manager\IManager.cs" />
     <Compile Include="Manager\StudentManager.cs" />

@@ -7,34 +7,33 @@ using IndividualProject.Model;
 using IndividualProject.UI;
 using IndividualProject.DB;
 
-
 namespace IndividualProject.Manager
 {
-	public class StudentPerCourseManager : IManager
+	public class AssignmentPerCourseManager : IManager
 	{
 		public void Create()
 		{
 			bool exit;
 
-			ConsoleUI.showLine("Students");
-			ICollection<Student> students = DBStudentsPerCourse.ReadStudentWithCourses();
+			ConsoleUI.showLine("Assignments");
+			ICollection<Assignment> assignments = DBAssignmentsPerCourse.ReadAssignmentsWithCourses();
 
-			if (students.Count() == 0)
+			if (assignments.Count() == 0)
 			{
-				ConsoleUI.showLine("no students yet");
+				ConsoleUI.showLine("no assignment yet");
 			}
 			else
 			{
-				foreach (Student s in students)
+				foreach (Assignment a in assignments)
 				{
-					ConsoleUI.showLine(s);
+					ConsoleUI.showLine(a);
 				}
 			}
 
 			ConsoleUI.changeLine();
 
 			ConsoleUI.showLine("Courses");
-			ICollection<Course> courses = DBStudentsPerCourse.ReadCoursesWithStudents();
+			ICollection<Course> courses = DBAssignmentsPerCourse.ReadCoursesWithAssignments();
 
 			if (courses.Count() == 0)
 			{
@@ -42,7 +41,7 @@ namespace IndividualProject.Manager
 			}
 			else
 			{
-				foreach(Course c in courses)
+				foreach (Course c in courses)
 				{
 					ConsoleUI.showLine(c);
 				}
@@ -52,21 +51,21 @@ namespace IndividualProject.Manager
 
 			ConsoleUI.showLine("press 0 anytime to exit");
 
-			exit = ConsoleUI.GetInt(out int selectedStudent, "give student id to connect: ");
+			exit = ConsoleUI.GetInt(out int selectedAssignment, "give assignment id to connect: ");
 			if (exit)
 			{
 				return;
 			}
 
-			Student student;
+			Assignment assignment;
 
 			try
 			{
-				student = students.Where(s => s.Id == selectedStudent).First();
+				assignment = assignments.Where(a => a.Id == selectedAssignment).First();
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showLine($"NO STUDENT FOUND FOR ID {selectedStudent}");
+				ConsoleUI.showLine($"NO ASSIGNMENT FOUND FOR ID {selectedAssignment}");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -90,25 +89,25 @@ namespace IndividualProject.Manager
 				return;
 			}
 
-			bool courseHasStudent = course.Students.Where(s => s.Id == selectedStudent).Count() > 0;
+			bool courseHasAssignment = course.Assignments.Where(a => a.Id == selectedAssignment).Count() > 0;
 
-			if (courseHasStudent)
+			if (courseHasAssignment)
 			{
-				ConsoleUI.showLine("this course already connects to this student");
+				ConsoleUI.showLine("this course already connects to this assigment");
 				//ConsoleUI.ReadKey();
 				//return;
 			}
 
-			bool studentHasCourse = student.Courses.Where(c => c.Id == selectedCourse).Count() > 0;
+			bool assignmentHasCourse = assignment.Courses.Where(c => c.Id == selectedCourse).Count() > 0;
 
-			if (studentHasCourse)
+			if (assignmentHasCourse)
 			{
-				ConsoleUI.showLine("this student already connects to this course");
+				ConsoleUI.showLine("this assignment already connects to this course");
 				ConsoleUI.ReadKey();
 				return;
 			}
 
-			int result = DBStudentsPerCourse.CreateStudentPerCourse(selectedStudent, selectedCourse);
+			int result = DBAssignmentsPerCourse.CreateAssignmentPerCourse(selectedAssignment, selectedCourse);
 
 			if (result == 0)
 			{
@@ -123,30 +122,30 @@ namespace IndividualProject.Manager
 
 		public void Read()
 		{
-			ICollection<Course> courses = DBStudentsPerCourse.ReadCoursesWithStudents();
+			ICollection<Course> courses = DBAssignmentsPerCourse.ReadCoursesWithAssignments();
 			if (courses.Count() == 0)
 			{
 				ConsoleUI.showLine("No courses yet");
 			}
 			else
 			{
-				ConsoleUI.showLine("List of courses with students\n");
+				ConsoleUI.showLine("List of courses with assignments\n");
 				foreach (Course c in courses)
 				{
 					ConsoleUI.showLine(c);
 
-					ICollection<Student> CourseStudents = c.Students.ToList();
-					if (CourseStudents.Count() == 0)
+					ICollection<Assignment> CourseAssignments = c.Assignments.ToList();
+					if (CourseAssignments.Count() == 0)
 					{
-						ConsoleUI.showLine("->this course has not students\n");
+						ConsoleUI.showLine("->this course has not assignments\n");
 					}
 					else
 					{
-						
-						foreach (Student s in CourseStudents)
+
+						foreach (Assignment a in CourseAssignments)
 						{
 							ConsoleUI.showMessage("->");
-							ConsoleUI.showLine(s);
+							ConsoleUI.showLine(a);
 						}
 						ConsoleUI.changeLine();
 					}
@@ -166,8 +165,8 @@ namespace IndividualProject.Manager
 		{
 			bool exit;
 
-			ICollection<Course> courses = DBStudentsPerCourse.ReadCoursesWithStudents();
-			ICollection<Student> students = DBStudentsPerCourse.ReadStudentWithCourses();
+			ICollection<Course> courses = DBAssignmentsPerCourse.ReadCoursesWithAssignments();
+			ICollection<Assignment> assignments = DBAssignmentsPerCourse.ReadAssignmentsWithCourses();
 
 			if (courses.Count() == 0)
 			{
@@ -175,23 +174,23 @@ namespace IndividualProject.Manager
 			}
 			else
 			{
-				ConsoleUI.showLine("List of courses with students\n");
+				ConsoleUI.showLine("List of courses with assignments\n");
 				foreach (Course c in courses)
 				{
 					ConsoleUI.showLine(c);
 
-					ICollection<Student> CourseStudents = c.Students.ToList();
-					if (CourseStudents.Count() == 0)
+					ICollection<Assignment> CourseAssignments = c.Assignments.ToList();
+					if (CourseAssignments.Count() == 0)
 					{
-						ConsoleUI.showLine("->this course has not students\n");
+						ConsoleUI.showLine("->this course has not assignments\n");
 					}
 					else
 					{
 
-						foreach (Student s in CourseStudents)
+						foreach (Assignment a in CourseAssignments)
 						{
 							ConsoleUI.showMessage("->");
-							ConsoleUI.showLine(s);
+							ConsoleUI.showLine(a);
 						}
 						ConsoleUI.changeLine();
 					}
@@ -202,21 +201,21 @@ namespace IndividualProject.Manager
 
 			ConsoleUI.showLine("press 0 anytime to exit");
 
-			exit = ConsoleUI.GetInt(out int selectedStudent, "give student id to disconnect: ");
+			exit = ConsoleUI.GetInt(out int selectedAssignment, "give assignment id to disconnect: ");
 			if (exit)
 			{
 				return;
 			}
 
-			Student student;
+			Assignment assignment;
 
 			try
 			{
-				student = students.Where(s => s.Id == selectedStudent).First();
+				assignment = assignments.Where(a => a.Id == selectedAssignment).First();
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showLine($"NO STUDENT FOUND FOR ID {selectedStudent}");
+				ConsoleUI.showLine($"NO ASSIGNMENT FOUND FOR ID {selectedAssignment}");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -240,25 +239,25 @@ namespace IndividualProject.Manager
 				return;
 			}
 
-			bool courseHasNoStudent = course.Students.Where(s => s.Id == selectedStudent).Count() == 0;
+			bool courseHasNoAssignment = course.Assignments.Where(a => a.Id == selectedAssignment).Count() == 0;
 
-			if (courseHasNoStudent)
+			if (courseHasNoAssignment)
 			{
-				ConsoleUI.showLine("this course doesn't connect to this student");
+				ConsoleUI.showLine("this course doesn't connect to this assignment");
 				//ConsoleUI.ReadKey();
 				//return;
 			}
 
-			bool studentHasNoCourse = student.Courses.Where(c => c.Id == selectedCourse).Count() == 0;
+			bool assignmentHasNoCourse = assignment.Courses.Where(c => c.Id == selectedCourse).Count() == 0;
 
-			if (studentHasNoCourse)
+			if (assignmentHasNoCourse)
 			{
-				ConsoleUI.showLine("this student doesn't connect to this course");
+				ConsoleUI.showLine("this assigment doesn't connect to this course");
 				ConsoleUI.ReadKey();
 				return;
 			}
 
-			int result = DBStudentsPerCourse.DeleteStudentPerCourse(selectedStudent, selectedCourse);
+			int result = DBAssignmentsPerCourse.DeleteAssignmentPerCourse(selectedAssignment, selectedCourse);
 
 			if (result == 0)
 			{
@@ -273,7 +272,7 @@ namespace IndividualProject.Manager
 
 		public void ShowCRUDMenu()
 		{
-			ConsoleUI.showLine($"select action for students per course");
+			ConsoleUI.showLine($"select action for assignments per course");
 			ConsoleUI.showLine("1. Create");
 			ConsoleUI.showLine("2. Read");
 			ConsoleUI.showLine("3. Update");

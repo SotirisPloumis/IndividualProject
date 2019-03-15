@@ -73,7 +73,7 @@ namespace IndividualProject
 						manager = new TrainerPerCourseManager();
 						break;
 					case MainOptions.crudAssignmentsPerCourse:
-						Console.WriteLine("assignments per course");
+						manager = new AssignmentPerCourseManager();
 						break;
 					case MainOptions.crudSchedulePerCourse:
 						Console.WriteLine("schedule per course");
