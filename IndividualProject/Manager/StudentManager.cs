@@ -95,7 +95,7 @@ namespace IndividualProject.Manager
 				}
 				catch (Exception e)
 				{
-					ConsoleUI.showLine(e.InnerException.Message);
+					ConsoleUI.showLine(e.Message);
 					ConsoleUI.ReadKey();
 					return;
 				}

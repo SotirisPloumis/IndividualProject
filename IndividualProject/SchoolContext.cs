@@ -26,6 +26,7 @@ namespace IndividualProject
 		public virtual DbSet<Assignment> Assignments { get; set; }
 		public virtual DbSet<Course> Courses { get; set; }
 		public virtual DbSet<User> Users { get; set; }
+		public virtual DbSet<StudentAssignment> StudentAssignments { get; set; }
 	}
 
 	//public class MyEntity

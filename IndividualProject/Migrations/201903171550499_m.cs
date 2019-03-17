@@ -3,7 +3,7 @@ namespace IndividualProject.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class m1 : DbMigration
+    public partial class m : DbMigration
     {
         public override void Up()
         {
@@ -46,6 +46,23 @@ namespace IndividualProject.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.StudentAssignments",
+                c => new
+                    {
+                        StudentId = c.Int(nullable: false),
+                        AssignmentId = c.Int(nullable: false),
+                        oralMark = c.Int(nullable: false),
+                        totalMark = c.Int(nullable: false),
+                        submitted = c.Boolean(nullable: false),
+                        submissionDate = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.StudentId, t.AssignmentId })
+                .ForeignKey("dbo.Assignments", t => t.AssignmentId, cascadeDelete: true)
+                .ForeignKey("dbo.Students", t => t.StudentId, cascadeDelete: true)
+                .Index(t => t.StudentId)
+                .Index(t => t.AssignmentId);
+            
+            CreateTable(
                 "dbo.Trainers",
                 c => new
                     {
@@ -78,19 +95,6 @@ namespace IndividualProject.Migrations
                 .ForeignKey("dbo.Courses", t => t.Course_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Assignments", t => t.Assignment_Id, cascadeDelete: true)
                 .Index(t => t.Course_Id)
-                .Index(t => t.Assignment_Id);
-            
-            CreateTable(
-                "dbo.StudentAssignments",
-                c => new
-                    {
-                        Student_Id = c.Int(nullable: false),
-                        Assignment_Id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.Student_Id, t.Assignment_Id })
-                .ForeignKey("dbo.Students", t => t.Student_Id, cascadeDelete: true)
-                .ForeignKey("dbo.Assignments", t => t.Assignment_Id, cascadeDelete: true)
-                .Index(t => t.Student_Id)
                 .Index(t => t.Assignment_Id);
             
             CreateTable(
@@ -127,24 +131,24 @@ namespace IndividualProject.Migrations
             DropForeignKey("dbo.TrainerCourses", "Trainer_Id", "dbo.Trainers");
             DropForeignKey("dbo.StudentCourses", "Course_Id", "dbo.Courses");
             DropForeignKey("dbo.StudentCourses", "Student_Id", "dbo.Students");
-            DropForeignKey("dbo.StudentAssignments", "Assignment_Id", "dbo.Assignments");
-            DropForeignKey("dbo.StudentAssignments", "Student_Id", "dbo.Students");
+            DropForeignKey("dbo.StudentAssignments", "StudentId", "dbo.Students");
+            DropForeignKey("dbo.StudentAssignments", "AssignmentId", "dbo.Assignments");
             DropForeignKey("dbo.CourseAssignments", "Assignment_Id", "dbo.Assignments");
             DropForeignKey("dbo.CourseAssignments", "Course_Id", "dbo.Courses");
             DropIndex("dbo.TrainerCourses", new[] { "Course_Id" });
             DropIndex("dbo.TrainerCourses", new[] { "Trainer_Id" });
             DropIndex("dbo.StudentCourses", new[] { "Course_Id" });
             DropIndex("dbo.StudentCourses", new[] { "Student_Id" });
-            DropIndex("dbo.StudentAssignments", new[] { "Assignment_Id" });
-            DropIndex("dbo.StudentAssignments", new[] { "Student_Id" });
             DropIndex("dbo.CourseAssignments", new[] { "Assignment_Id" });
             DropIndex("dbo.CourseAssignments", new[] { "Course_Id" });
+            DropIndex("dbo.StudentAssignments", new[] { "AssignmentId" });
+            DropIndex("dbo.StudentAssignments", new[] { "StudentId" });
             DropTable("dbo.TrainerCourses");
             DropTable("dbo.StudentCourses");
-            DropTable("dbo.StudentAssignments");
             DropTable("dbo.CourseAssignments");
             DropTable("dbo.Users");
             DropTable("dbo.Trainers");
+            DropTable("dbo.StudentAssignments");
             DropTable("dbo.Students");
             DropTable("dbo.Courses");
             DropTable("dbo.Assignments");

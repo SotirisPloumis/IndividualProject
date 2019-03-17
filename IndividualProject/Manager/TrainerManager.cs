@@ -358,5 +358,13 @@ namespace IndividualProject.Manager
 			ConsoleUI.showLine("4. Delete");
 			ConsoleUI.showLine("0. Exit");
 		}
+
+		public void showPersonalMessage(int id)
+		{
+			ICollection<Trainer> trainers = DBTrainer.ReadTrainers();
+			Trainer me = trainers.Where(t => t.Id == id).First();
+
+			ConsoleUI.showLine($"Hello {me.FirstName} {me.LastName}");
+		}
 	}
 }

@@ -35,6 +35,16 @@ namespace IndividualProject.UI
 			
 			return input.Equals("0");
 		}
+
+		public static bool GetPassword(out string input, string message = "")
+		{
+			do
+			{
+				input = ReadLine.ReadPassword(message);
+			} while (input.Equals(""));
+
+			return input.Equals("0");
+		}
 		
 		public static bool GetDate(out DateTime? finalDate, string message = "")
 		{
@@ -136,6 +146,7 @@ namespace IndividualProject.UI
 
 		public static void ReadKey()
 		{
+			Console.WriteLine("press a key to continue");
 			Console.ReadKey();
 		}
 	}

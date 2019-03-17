@@ -39,6 +39,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ReadLine, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReadLine.2.0.1\lib\netstandard2.0\ReadLine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -53,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DB\DBAssignment.cs" />
+    <Compile Include="DB\DBAssignmentPerStudent.cs" />
     <Compile Include="DB\DBAssignmentsPerCourse.cs" />
     <Compile Include="DB\DBCourse.cs" />
     <Compile Include="DB\DBStudent.cs" />
@@ -63,6 +67,7 @@
     <Compile Include="Manager\AccountManager.cs" />
     <Compile Include="Manager\AssignmentManager.cs" />
     <Compile Include="Manager\AssignmentPerCourseManager.cs" />
+    <Compile Include="Manager\AssignmentPerStudentManager.cs" />
     <Compile Include="Manager\CourseManager.cs" />
     <Compile Include="Manager\IManager.cs" />
     <Compile Include="Manager\StudentManager.cs" />
@@ -70,14 +75,27 @@
     <Compile Include="Manager\TrainerManager.cs" />
     <Compile Include="Manager\TrainerPerCourseManager.cs" />
     <Compile Include="Menu.cs" />
-    <Compile Include="Migrations\201903170107427_m1.cs" />
-    <Compile Include="Migrations\201903170107427_m1.Designer.cs">
-      <DependentUpon>201903170107427_m1.cs</DependentUpon>
+    <Compile Include="Migrations\201903171550499_m.cs" />
+    <Compile Include="Migrations\201903171550499_m.Designer.cs">
+      <DependentUpon>201903171550499_m.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903171552224_m2.cs" />
+    <Compile Include="Migrations\201903171552224_m2.Designer.cs">
+      <DependentUpon>201903171552224_m2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903171558297_m3.cs" />
+    <Compile Include="Migrations\201903171558297_m3.Designer.cs">
+      <DependentUpon>201903171558297_m3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903172044409_q.cs" />
+    <Compile Include="Migrations\201903172044409_q.Designer.cs">
+      <DependentUpon>201903172044409_q.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Assignment.cs" />
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\Student.cs" />
+    <Compile Include="Model\StudentAssignment.cs" />
     <Compile Include="Model\Trainer.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Program.cs" />
@@ -90,8 +108,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903170107427_m1.resx">
-      <DependentUpon>201903170107427_m1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903171550499_m.resx">
+      <DependentUpon>201903171550499_m.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903171552224_m2.resx">
+      <DependentUpon>201903171552224_m2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903171558297_m3.resx">
+      <DependentUpon>201903171558297_m3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903172044409_q.resx">
+      <DependentUpon>201903172044409_q.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

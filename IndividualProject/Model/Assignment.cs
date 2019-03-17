@@ -15,12 +15,12 @@ namespace IndividualProject.Model
 		public decimal OralMark { get; set; }
 		public decimal TotalMark { get; set; }
 
-		public virtual ICollection<Student> Students { get; set; }
+		public virtual ICollection<StudentAssignment> Students { get; set; }
 		public virtual ICollection<Course> Courses { get; set; }
 
 		public Assignment()
 		{
-			Students = new List<Student>();
+			Students = new List<StudentAssignment>();
 			Courses = new List<Course>();
 		}
 

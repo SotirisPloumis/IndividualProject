@@ -7,7 +7,7 @@ using IndividualProject.Manager;
 
 namespace IndividualProject
 {
-	enum MainOptions
+	enum HeadMasterOptions
 	{
 		crudCourses=1,
 		crudStudents = 2,
@@ -16,7 +16,17 @@ namespace IndividualProject
 		crudStudentsPerCourse,
 		crudTrainersPerCourse,
 		crudAssignmentsPerCourse,
-		crudSchedulePerCourse
+		crudSchedulePerCourse,
+		logout
+	}
+
+	enum TrainerOptions
+	{
+		viewCourses = 1,
+		viewStudentsPerCourse = 2,
+		viewAssignmentsPerStudentPerCourse = 3,
+		markAssignmentsPerStudentPerCourse = 4,
+		logout = 9
 	}
 
 	enum CRUDOptions
@@ -29,11 +39,71 @@ namespace IndividualProject
 
 	public static class Menu
 	{
-		public static void showMenuAndDo()
+		public static void start()
+		{
+			bool headMasterExists = AccountManager.HeadMasterExists();
+
+			if (!headMasterExists)
+			{
+				Console.WriteLine("No head master is present in the database");
+				AccountManager.Register();
+			}
+
+			bool exit = false;
+			bool loggedIn = false;
+
+			do
+			{
+				exit = AccountManager.Login(out loggedIn, out string role, out int id);
+
+				if (exit)
+				{
+					return;
+				}
+
+				if (loggedIn)
+				{
+					Console.Clear();
+					switch (role)
+					{
+						case "headmaster":
+							loggedIn = headMasterOptions();
+							break;
+						case "trainer":
+							loggedIn = trainerOptions(id);
+							break;
+						case "student":
+							Console.WriteLine("i am student");
+							break;
+						default:
+							Console.WriteLine("i am other");
+							break;
+					}
+					
+				}
+				else
+				{
+					Console.WriteLine("wrong username or password");
+				}
+			} while (!loggedIn);
+			
+		}
+
+		private static bool headMasterOptions()
 		{
 			while (true)
 			{
-				showHeadMasterMenu();
+				Console.WriteLine("1. CRUD on courses");
+				Console.WriteLine("2. CRUD on students");
+				Console.WriteLine("3. CRUD on assignments");
+				Console.WriteLine("4. CRUD on trainers");
+				Console.WriteLine("5. CRUD on students per course");
+				Console.WriteLine("6. CRUD on trainers per course");
+				Console.WriteLine("7. CRUD on assignments per course");
+				Console.WriteLine("8. CRUD on schedule per course");
+				Console.WriteLine("9. Logout");
+				Console.WriteLine("0. Exit");
+
 				string input = Console.ReadLine();
 				Console.Clear();
 
@@ -48,62 +118,117 @@ namespace IndividualProject
 					break;
 				}
 
-				MainOptions mainOption = (MainOptions)choice;
+				HeadMasterOptions mainOption = (HeadMasterOptions)choice;
 
 				IManager manager = null;
 
 				switch (mainOption)
 				{
-					case MainOptions.crudCourses:
+					case HeadMasterOptions.crudCourses:
 						manager = new CourseManager();
 						break;
-					case MainOptions.crudStudents:
+					case HeadMasterOptions.crudStudents:
 						manager = new StudentManager();
 						break;
-					case MainOptions.crudAssignments:
+					case HeadMasterOptions.crudAssignments:
 						manager = new AssignmentManager();
 						break;
-					case MainOptions.crudTrainers:
+					case HeadMasterOptions.crudTrainers:
 						manager = new TrainerManager();
 						break;
-					case MainOptions.crudStudentsPerCourse:
+					case HeadMasterOptions.crudStudentsPerCourse:
 						manager = new StudentPerCourseManager();
 						break;
-					case MainOptions.crudTrainersPerCourse:
+					case HeadMasterOptions.crudTrainersPerCourse:
 						manager = new TrainerPerCourseManager();
 						break;
-					case MainOptions.crudAssignmentsPerCourse:
+					case HeadMasterOptions.crudAssignmentsPerCourse:
 						manager = new AssignmentPerCourseManager();
 						break;
-					case MainOptions.crudSchedulePerCourse:
+					case HeadMasterOptions.crudSchedulePerCourse:
 						Console.WriteLine("CRUD ops for 'schedule per course' belongs to CRUD ops for course (start and end date)");
 						break;
+					case HeadMasterOptions.logout:
+						Console.WriteLine("logging out");
+						Console.ReadKey();
+						Console.Clear();
+						return false;
 					default:
 						break;
 				}
 
 				if (manager != null)
 				{
-					showElementCRUD(manager);
+					headMasterCRUD(manager);
 				}
+				
 			}
+			return true;
 		}
 
-		private static void showHeadMasterMenu()
+		private static bool trainerOptions(int trainerID)
 		{
-			Console.WriteLine("1. CRUD on courses");
-			Console.WriteLine("2. CRUD on students");
-			Console.WriteLine("3. CRUD on assignments");
-			Console.WriteLine("4. CRUD on trainers");
-			Console.WriteLine("5. CRUD on students per course");
-			Console.WriteLine("6. CRUD on trainers per course");
-			Console.WriteLine("7. CRUD on assignments per course");
-			Console.WriteLine("8. CRUD on schedule per course");
-			Console.WriteLine("0. Exit");
+			while (true)
+			{
+				TrainerManager tm = new TrainerManager();
+				tm.showPersonalMessage(trainerID);
+				Console.WriteLine();
 
+				Console.WriteLine("1. view my courses");
+				Console.WriteLine("2. view students per course");
+				Console.WriteLine("3. view assignments per student per course");
+				Console.WriteLine("4. mark assignments per student per course");
+				Console.WriteLine("9. Logout");
+				Console.WriteLine("0. Exit");
+
+				string input = Console.ReadLine();
+				Console.Clear();
+
+				bool goodInput = Int32.TryParse(input, out int choice);
+				if (!goodInput)
+				{
+					continue;
+				}
+
+				if (choice == 0)
+				{
+					break;
+				}
+
+				TrainerOptions mainOption = (TrainerOptions)choice;
+
+				switch (mainOption)
+				{
+					case TrainerOptions.viewCourses:
+						TrainerPerCourseManager manager = new TrainerPerCourseManager();
+						manager.ReadTrainerCourses(trainerID);
+						break;
+					case TrainerOptions.viewStudentsPerCourse:
+						StudentPerCourseManager manager2 = new StudentPerCourseManager();
+						manager2.Read();
+						break;
+					case TrainerOptions.viewAssignmentsPerStudentPerCourse:
+						AssignmentPerStudentManager manager3 = new AssignmentPerStudentManager();
+						manager3.ReadAssignmentsPerCoursePerStudent();
+						break;
+					case TrainerOptions.markAssignmentsPerStudentPerCourse:
+						AssignmentPerStudentManager manager4 = new AssignmentPerStudentManager();
+						manager4.MarkAssignmentsPerCoursePerStudent();
+						break;
+					case TrainerOptions.logout:
+						Console.WriteLine("logging out");
+						Console.ReadKey();
+						Console.Clear();
+						return false;
+					default:
+						break;
+				}
+
+			}
+			return true;
 		}
 
-		private static void showElementCRUD(IManager manager)
+		private static void headMasterCRUD(IManager manager)
 		{
 			while (true)
 			{

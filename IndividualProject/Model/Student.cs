@@ -18,12 +18,12 @@ namespace IndividualProject.Model
 		public DateTime DateOfBirth { get; set; }
 		public decimal Fees { get; set; }
 
-		public virtual ICollection<Assignment> Assignments { get; set; }
+		public virtual ICollection<StudentAssignment> Assignments { get; set; }
 		public virtual ICollection<Course> Courses { get; set; }
 
 		public Student()
 		{
-			Assignments = new List<Assignment>();
+			Assignments = new List<StudentAssignment>();
 			Courses = new List<Course>();
 		}
 

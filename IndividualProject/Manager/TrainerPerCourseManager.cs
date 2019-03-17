@@ -156,6 +156,39 @@ namespace IndividualProject.Manager
 			ConsoleUI.Clear();
 		}
 
+		public void ReadTrainerCourses(int trainerID)
+		{
+			ICollection<Trainer> trainers = DBTrainersPerCourse.ReadTrainersWithCourses();
+			if (trainers.Count() == 0)
+			{
+				ConsoleUI.showLine("No trainers yet");
+			}
+			else
+			{
+				ConsoleUI.showLine("List of my courses:\n");
+
+				Trainer me = trainers.Where(t => t.Id == trainerID).First();
+
+				if (me.Courses.Count() == 0)
+				{
+					ConsoleUI.showLine("I am not enrolled in any course");
+				}
+				else
+				{
+					foreach (Course c in me.Courses)
+					{
+						ConsoleUI.showMessage("->");
+						ConsoleUI.showLine(c);
+					}
+				}
+
+				ConsoleUI.changeLine();
+			}
+
+			ConsoleUI.ReadKey();
+			ConsoleUI.Clear();
+		}
+
 		public void Update()
 		{
 			ConsoleUI.showLine("Update is not available for this connection, please choose create or delete instead");

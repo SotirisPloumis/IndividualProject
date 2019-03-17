@@ -11,7 +11,8 @@ namespace IndividualProject
 	{
 		static void Main(string[] args)
 		{
-			Menu.showMenuAndDo();
+			
+			Menu.start();
 		}
 	}
 }

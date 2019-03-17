@@ -116,8 +116,11 @@ namespace IndividualProject.Manager
 			else
 			{
 				ConsoleUI.showLine("connection saved");
+				//add assignment to students of this course
+				AssignmentPerStudentManager apsm = new AssignmentPerStudentManager();
+				apsm.CreateFromNewAssignment(selectedAssignment, selectedCourse);
 			}
-			ConsoleUI.ReadKey();
+			
 		}
 
 		public void Read()
@@ -266,8 +269,10 @@ namespace IndividualProject.Manager
 			else
 			{
 				ConsoleUI.showLine("connection removed");
+				AssignmentPerStudentManager apsm = new AssignmentPerStudentManager();
+				apsm.DeleteByAssignment(selectedAssignment, selectedCourse);
 			}
-			ConsoleUI.ReadKey();
+			
 		}
 
 		public void ShowCRUDMenu()
