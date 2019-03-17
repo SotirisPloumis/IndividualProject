@@ -10,20 +10,20 @@ namespace IndividualProject.DB
 {
 	public static class DBTrainer
 	{
-		public static int CreateTrainer(string fname, string lname, string subject, out int trainerID)
+		public static int CreateTrainer(string fname, string lname, string subject, int trainerID)
 		{
 			Trainer t = new Trainer()
 			{
 				FirstName = fname,
 				LastName = lname,
-				Subject = subject
+				Subject = subject,
+				Id = trainerID
 			};
 
 			using (SchoolContext context = new SchoolContext())
 			{
 				context.Trainers.Add(t);
 				int created = context.SaveChanges();
-				trainerID = t.Id;
 				return created;
 			}
 		}
@@ -36,7 +36,7 @@ namespace IndividualProject.DB
 			}
 		}
 
-		public static int UpdateTrainer<T>(int id, TrainerAttributes attribute, T newValue)
+		public static int UpdateTrainer<T>(int id, Object attribute, T newValue)
 		{
 			using (SchoolContext sc = new SchoolContext())
 			{

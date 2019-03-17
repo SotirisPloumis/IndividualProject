@@ -37,7 +37,7 @@ namespace IndividualProject.Migrations
                 "dbo.Students",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false),
                         FirstName = c.String(),
                         LastName = c.String(),
                         DateOfBirth = c.DateTime(nullable: false),
@@ -49,10 +49,21 @@ namespace IndividualProject.Migrations
                 "dbo.Trainers",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false),
                         FirstName = c.String(),
                         LastName = c.String(),
                         Subject = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Users",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Username = c.String(),
+                        Password = c.String(),
+                        Role = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -132,6 +143,7 @@ namespace IndividualProject.Migrations
             DropTable("dbo.StudentCourses");
             DropTable("dbo.StudentAssignments");
             DropTable("dbo.CourseAssignments");
+            DropTable("dbo.Users");
             DropTable("dbo.Trainers");
             DropTable("dbo.Students");
             DropTable("dbo.Courses");

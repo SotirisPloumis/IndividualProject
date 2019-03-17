@@ -59,6 +59,8 @@
     <Compile Include="DB\DBStudentsPerCourse.cs" />
     <Compile Include="DB\DBTrainer.cs" />
     <Compile Include="DB\DBTrainersPerCourse.cs" />
+    <Compile Include="DB\DBUser.cs" />
+    <Compile Include="Manager\AccountManager.cs" />
     <Compile Include="Manager\AssignmentManager.cs" />
     <Compile Include="Manager\AssignmentPerCourseManager.cs" />
     <Compile Include="Manager\CourseManager.cs" />
@@ -68,15 +70,16 @@
     <Compile Include="Manager\TrainerManager.cs" />
     <Compile Include="Manager\TrainerPerCourseManager.cs" />
     <Compile Include="Menu.cs" />
-    <Compile Include="Migrations\201903080950526_m1.cs" />
-    <Compile Include="Migrations\201903080950526_m1.Designer.cs">
-      <DependentUpon>201903080950526_m1.cs</DependentUpon>
+    <Compile Include="Migrations\201903170107427_m1.cs" />
+    <Compile Include="Migrations\201903170107427_m1.Designer.cs">
+      <DependentUpon>201903170107427_m1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Assignment.cs" />
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Model\Trainer.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchoolContext.cs" />
@@ -87,8 +90,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903080950526_m1.resx">
-      <DependentUpon>201903080950526_m1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903170107427_m1.resx">
+      <DependentUpon>201903170107427_m1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -10,22 +10,21 @@ namespace IndividualProject.DB
 {
 	public static class DBStudent
 	{
-		public static int CreateStudent(string fname, string lname, DateTime dob, decimal fees, out int studentID)
+		public static int CreateStudent(string fname, string lname, DateTime dob, decimal fees, int studentID)
 		{
 			Student newStudent = new Student()
 			{
 				FirstName = fname,
 				LastName = lname,
 				DateOfBirth = dob,
-				Fees = fees
+				Fees = fees,
+				Id = studentID
 			};
 
 			using (SchoolContext context = new SchoolContext())
 			{
 				context.Students.Add(newStudent);
-				int created = context.SaveChanges();
-				studentID = newStudent.Id;
-				return created;
+				return context.SaveChanges();
 			}
 		}
 
@@ -37,7 +36,7 @@ namespace IndividualProject.DB
 			}
 		}
 
-		public static int UpdateStudent<T>(int id, StudentAttributes attribute, T newValue)
+		public static int UpdateStudent<T>(int id, Object attribute, T newValue)
 		{
 			using(SchoolContext sc = new SchoolContext())
 			{

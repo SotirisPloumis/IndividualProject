@@ -10,10 +10,10 @@ using IndividualProject.DB;
 namespace IndividualProject.Manager
 {
 	public enum StudentAttributes{
-		Fname = 1,
-		Lname,
-		DOB,
-		Fees
+		Fname = 3,
+		Lname = 4,
+		DOB = 5,
+		Fees = 6
 	}
 
 	public class StudentManager : IManager
@@ -28,6 +28,19 @@ namespace IndividualProject.Manager
 
 				string baseMessage = "type student's information or type 0 to exit \n";
 
+				exit = ConsoleUI.GetString(out string username, $"{baseMessage}Student's username: ");
+				if (exit)
+				{
+					return;
+				}
+
+				exit = ConsoleUI.GetString(out string password, $"{baseMessage}Student's password: ");
+				if (exit)
+				{
+					return;
+				}
+
+				
 
 				exit = ConsoleUI.GetString(out string fname,$"{baseMessage}Student's first name: ");
 				if (exit)
@@ -53,16 +66,41 @@ namespace IndividualProject.Manager
 					return;
 				}
 
-				int result = DBStudent.CreateStudent(fname, lname, (DateTime)dob, fees, out int id);
+				int studentID;
 
-				if (result == 0)
+				try
 				{
-					ConsoleUI.showLine("student could NOT be saved");
+					int userSaved = DBUser.CreateUser(username, password, "student", out studentID);
+					if (userSaved == 0)
+					{
+						throw new Exception("user NOT saved");
+					}
 				}
-				else
+				catch (Exception e)
 				{
-					ConsoleUI.showLine($"student created with id: {id}");
+					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ReadKey();
+					return;
 				}
+
+				ConsoleUI.showLine($"user {username} saved");
+
+				try
+				{
+					int studentSaved = DBStudent.CreateStudent(fname, lname, (DateTime)dob, fees, studentID);
+					if (studentSaved == 0)
+					{
+						throw new Exception("student NOT saved");
+					}
+				}
+				catch (Exception e)
+				{
+					ConsoleUI.showLine(e.InnerException.Message);
+					ConsoleUI.ReadKey();
+					return;
+				}
+
+				ConsoleUI.showLine("student created");
 
 				ConsoleUI.ReadKey();
 
@@ -133,10 +171,13 @@ namespace IndividualProject.Manager
 			ConsoleUI.showLine($"you selected to edit student: {student.FirstName} {student.LastName}");
 
 			ConsoleUI.showLine($"select attribute to edit, type 0 anytime to exit");
-			ConsoleUI.showLine("1. First name");
-			ConsoleUI.showLine("2. Last name");
-			ConsoleUI.showLine("3. Date of birth");
-			ConsoleUI.showLine("4. Fees");
+			ConsoleUI.showLine("1. Username");
+			ConsoleUI.showLine("2. Password");
+			ConsoleUI.showLine("3. First name");
+			ConsoleUI.showLine("4. Last name");
+			ConsoleUI.showLine("5. Date of birth");
+			ConsoleUI.showLine("6. Fees");
+			
 
 			exit = ConsoleUI.GetInt(out int choice);
 			if (exit)
@@ -145,67 +186,128 @@ namespace IndividualProject.Manager
 			}
 			ConsoleUI.Clear();
 
-			StudentAttributes attribute = (StudentAttributes)choice;
+			Object attribute;
+			if (choice == 1 || choice == 2)
+			{
+				attribute = (UserAttributes)choice;
+			}
+			else
+			{
+				attribute = (StudentAttributes)choice;
+			}
+
 			string newInput = "";
 			DateTime? newDate;
 			decimal newFees;
 
 			int result = 0;
 
-			switch (attribute)
+			try
 			{
-				case StudentAttributes.Fname:
-					exit = ConsoleUI.GetString(out newInput, "enter new first name: ");
-					if (exit)
-					{
-						return;
-					}
+				switch (attribute)
+				{
+					case StudentAttributes.Fname:
+						exit = ConsoleUI.GetString(out newInput, "enter new first name: ");
+						if (exit)
+						{
+							return;
+						}
 
-					result = DBStudent.UpdateStudent(StudentID, attribute, newInput);
+						result = DBStudent.UpdateStudent(StudentID, attribute, newInput);
 
-					break;
-				case StudentAttributes.Lname:
-					exit = ConsoleUI.GetString(out newInput, "enter new last name: ");
-					if (exit)
-					{
-						return;
-					}
+						if (result == 0)
+						{
+							throw new Exception("student NOT updated");
+						}
 
-					result = DBStudent.UpdateStudent(StudentID, attribute, newInput);
+						break;
+					case StudentAttributes.Lname:
+						exit = ConsoleUI.GetString(out newInput, "enter new last name: ");
+						if (exit)
+						{
+							return;
+						}
 
-					break;
-				case StudentAttributes.DOB:
-					exit = ConsoleUI.GetDate(out newDate, "enter new date of birth: ");
-					if (exit)
-					{
-						return;
-					}
+						result = DBStudent.UpdateStudent(StudentID, attribute, newInput);
 
-					result = DBStudent.UpdateStudent(StudentID, attribute, newDate);
+						if (result == 0)
+						{
+							throw new Exception("student NOT updated");
+						}
 
-					break;
-				case StudentAttributes.Fees:
-					exit = ConsoleUI.GetDecimal(out newFees, "enter new fees: ");
-					if (exit)
-					{
-						return;
-					}
+						break;
+					case StudentAttributes.DOB:
+						exit = ConsoleUI.GetDate(out newDate, "enter new date of birth: ");
+						if (exit)
+						{
+							return;
+						}
 
-					result = DBStudent.UpdateStudent(StudentID, attribute, newFees);
+						result = DBStudent.UpdateStudent(StudentID, attribute, newDate);
 
-					break;
-				default:
-					break;
+						if (result == 0)
+						{
+							throw new Exception("student NOT updated");
+						}
+
+						break;
+					case StudentAttributes.Fees:
+						exit = ConsoleUI.GetDecimal(out newFees, "enter new fees: ");
+						if (exit)
+						{
+							return;
+						}
+
+						result = DBStudent.UpdateStudent(StudentID, attribute, newFees);
+
+						if (result == 0)
+						{
+							throw new Exception("student NOT updated");
+						}
+
+						break;
+					case UserAttributes.Username:
+						exit = ConsoleUI.GetString(out newInput, "enter new username: ");
+						if (exit)
+						{
+							return;
+						}
+
+						result = DBUser.UpdateUser(StudentID, attribute, newInput);
+
+						if (result == 0)
+						{
+							throw new Exception("user NOT updated");
+						}
+
+						break;
+
+					case UserAttributes.Password:
+						exit = ConsoleUI.GetString(out newInput, "enter new password: ");
+						if (exit)
+						{
+							return;
+						}
+
+						result = DBUser.UpdateUser(StudentID, attribute, newInput);
+
+						if (result == 0)
+						{
+							throw new Exception("user NOT updated");
+						}
+
+						break;
+					default:
+						break;
+				}
+			}
+			catch (Exception e)
+			{
+				ConsoleUI.showLine(e.Message);
 			}
 
-			if (result == 0)
-			{
-				ConsoleUI.showLine("student update failed");
-			}
-			else
-			{
-				ConsoleUI.showLine("student updated successfully");
-			}
+			ConsoleUI.showLine("student updated successfully");
+
 			ConsoleUI.ReadKey();
 
 		}
@@ -256,15 +358,38 @@ namespace IndividualProject.Manager
 			int result = 0;
 			if (confirmed)
 			{
-				result = DBStudent.DeleteStudent(StudentID);
-				if (result == 0)
+				try
 				{
-					ConsoleUI.showLine("delete failed");
+					result = DBStudent.DeleteStudent(StudentID);
+					if (result == 0)
+					{
+						throw new Exception("could NOT delete student");
+					}
 				}
-				else
+				catch (Exception e)
 				{
-					ConsoleUI.showLine("student deleted successfully");
+					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ReadKey();
+					return;
 				}
+
+				try
+				{
+					result = DBUser.DeleteUser(StudentID);
+					if (result == 0)
+					{
+						throw new Exception("could NOT delete user");
+					}
+				}
+				catch (Exception e)
+				{
+					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ReadKey();
+					return;
+				}
+
+				ConsoleUI.showLine("student deleted successfully");
+
 				ConsoleUI.ReadKey();
 			}
 		}

@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace IndividualProject.Manager
 {
+	public enum UserAttributes
+	{
+		Username = 1,
+		Password,
+		Role
+	}
+
 	public interface IManager
 	{
 		void Create();

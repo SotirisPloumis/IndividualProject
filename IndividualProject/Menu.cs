@@ -76,7 +76,7 @@ namespace IndividualProject
 						manager = new AssignmentPerCourseManager();
 						break;
 					case MainOptions.crudSchedulePerCourse:
-						Console.WriteLine("schedule per course");
+						Console.WriteLine("CRUD ops for 'schedule per course' belongs to CRUD ops for course (start and end date)");
 						break;
 					default:
 						break;
@@ -84,7 +84,7 @@ namespace IndividualProject
 
 				if (manager != null)
 				{
-					showCRUDMenuAndDo(manager);
+					showElementCRUD(manager);
 				}
 			}
 		}
@@ -103,7 +103,7 @@ namespace IndividualProject
 
 		}
 
-		private static void showCRUDMenuAndDo(IManager manager)
+		private static void showElementCRUD(IManager manager)
 		{
 			while (true)
 			{
@@ -146,6 +146,5 @@ namespace IndividualProject
 
 		}
 
-		
 	}
 }

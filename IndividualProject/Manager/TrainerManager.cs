@@ -11,9 +11,9 @@ namespace IndividualProject.Manager
 {
 	public enum TrainerAttributes
 	{
-		Fname = 1,
-		Lname,
-		Subject
+		Fname = 3,
+		Lname = 4,
+		Subject = 5
 	}
 
 	public class TrainerManager : IManager
@@ -28,6 +28,19 @@ namespace IndividualProject.Manager
 
 				string baseMessage = "type trainer's information or type 0 to exit \n";
 
+				exit = ConsoleUI.GetString(out string username, $"{baseMessage}Trainer's username: ");
+				if (exit)
+				{
+					return;
+				}
+
+				exit = ConsoleUI.GetString(out string password, $"{baseMessage}Trainer's password: ");
+				if (exit)
+				{
+					return;
+				}
+
+				
 
 				exit = ConsoleUI.GetString(out string fname, $"{baseMessage}Trainer's first name: ");
 				if (exit)
@@ -47,16 +60,41 @@ namespace IndividualProject.Manager
 					return;
 				}
 
-				int result = DBTrainer.CreateTrainer(fname, lname, subject, out int id);
+				int trainerID;
 
-				if (result == 0)
+				try
 				{
-					ConsoleUI.showLine("trainer could NOT be saved");
+					int userSaved = DBUser.CreateUser(username, password, "trainer", out trainerID);
+					if (userSaved == 0)
+					{
+						throw new Exception("user NOT saved");
+					}
 				}
-				else
+				catch (Exception e)
 				{
-					ConsoleUI.showLine($"trainer created with id: {id}");
+					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ReadKey();
+					return;
 				}
+
+				ConsoleUI.showLine($"user {username} saved");
+
+				try
+				{
+					int trainerSaved = DBTrainer.CreateTrainer(fname, lname, subject, trainerID);
+					if (trainerSaved == 0)
+					{
+						throw new Exception("trainer NOT saved");
+					}
+				}
+				catch (Exception e)
+				{
+					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ReadKey();
+					return;
+				}
+
+				ConsoleUI.showLine("trainer created");
 
 				ConsoleUI.ReadKey();
 
@@ -128,9 +166,11 @@ namespace IndividualProject.Manager
 			ConsoleUI.showLine($"you selected to edit trainer: {trainer.FirstName} {trainer.LastName}");
 
 			ConsoleUI.showLine($"select attribute to edit, type 0 anytime to exit");
-			ConsoleUI.showLine("1. First name");
-			ConsoleUI.showLine("2. Last name");
-			ConsoleUI.showLine("3. Subject");
+			ConsoleUI.showLine("1. Username");
+			ConsoleUI.showLine("2. Password");
+			ConsoleUI.showLine("3. First name");
+			ConsoleUI.showLine("4. Last name");
+			ConsoleUI.showLine("5. Subject");
 
 			exit = ConsoleUI.GetInt(out int choice);
 			if (exit)
@@ -139,21 +179,40 @@ namespace IndividualProject.Manager
 			}
 			ConsoleUI.Clear();
 
-			TrainerAttributes attribute = (TrainerAttributes)choice;
+			Object attribute;
+			if (choice == 1 || choice == 2)
+			{
+				attribute = (UserAttributes)choice;
+			}
+			else
+			{
+				 attribute = (TrainerAttributes)choice;
+			}
+
 			string newInput = "";
 
-			int result = 0;
+			
+			bool entitySpecificUpdate = false;
 
 			switch (attribute)
 			{
 				case TrainerAttributes.Fname:
 					exit = ConsoleUI.GetString(out newInput, "enter new first name: ");
+					entitySpecificUpdate = true;
 					break;
 				case TrainerAttributes.Lname:
 					exit = ConsoleUI.GetString(out newInput, "enter new last name: ");
+					entitySpecificUpdate = true;
 					break;
 				case TrainerAttributes.Subject:
 					exit = ConsoleUI.GetString(out newInput, "enter new subject: ");
+					entitySpecificUpdate = true;
+					break;
+				case UserAttributes.Username:
+					exit = ConsoleUI.GetString(out newInput, "enter new username: ");
+					break;
+				case UserAttributes.Password:
+					exit = ConsoleUI.GetString(out newInput, "enter new password: ");
 					break;
 				default:
 					break;
@@ -163,16 +222,46 @@ namespace IndividualProject.Manager
 			{
 				return;
 			}
-			result = DBTrainer.UpdateTrainer(TrainerID, attribute, newInput);
+			int result = 0;
 
-			if (result == 0)
+			if (entitySpecificUpdate)
 			{
-				ConsoleUI.showLine("student update failed");
+				try
+				{
+					result = DBTrainer.UpdateTrainer(TrainerID, attribute, newInput);
+					if (result == 0)
+					{
+						throw new Exception("trainer update failed");
+					}
+					ConsoleUI.showLine("trainer updated successfully");
+				}
+				catch (Exception e)
+				{
+					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ReadKey();
+					return;
+				}
 			}
 			else
 			{
-				ConsoleUI.showLine("student updated successfully");
+				try
+				{
+					result = DBUser.UpdateUser(TrainerID, attribute, newInput);
+					if (result == 0)
+					{
+						throw new Exception("user update failed");
+					}
+					ConsoleUI.showLine("user updated successfully");
+				}
+				catch (Exception e)
+				{
+					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ReadKey();
+					return;
+				}
 			}
+			
+
 			ConsoleUI.ReadKey();
 
 		}
@@ -224,15 +313,38 @@ namespace IndividualProject.Manager
 			int result = 0;
 			if (confirmed)
 			{
-				result = DBTrainer.DeleteTrainer(TrainerID);
-				if (result == 0)
+				try
 				{
-					ConsoleUI.showLine("delete failed");
+					result = DBTrainer.DeleteTrainer(TrainerID);
+					if (result == 0)
+					{
+						throw new Exception("could NOT delete trainer");
+					}
 				}
-				else
+				catch (Exception e)
 				{
-					ConsoleUI.showLine("trainer deleted successfully");
+					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ReadKey();
+					return;
 				}
+
+				try
+				{
+					result = DBUser.DeleteUser(TrainerID);
+					if (result == 0)
+					{
+						throw new Exception("could NOT delete user");
+					}
+				}
+				catch (Exception e)
+				{
+					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ReadKey();
+					return;
+				}
+
+				ConsoleUI.showLine("trainer deleted successfully");
+
 				ConsoleUI.ReadKey();
 			}
 		}
