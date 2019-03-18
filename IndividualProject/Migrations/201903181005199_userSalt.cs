@@ -3,7 +3,7 @@ namespace IndividualProject.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class m : DbMigration
+    public partial class userSalt : DbMigration
     {
         public override void Up()
         {
@@ -51,16 +51,19 @@ namespace IndividualProject.Migrations
                     {
                         StudentId = c.Int(nullable: false),
                         AssignmentId = c.Int(nullable: false),
+                        CourseId = c.Int(nullable: false),
                         oralMark = c.Int(nullable: false),
                         totalMark = c.Int(nullable: false),
                         submitted = c.Boolean(nullable: false),
                         submissionDate = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => new { t.StudentId, t.AssignmentId })
+                .PrimaryKey(t => new { t.StudentId, t.AssignmentId, t.CourseId })
                 .ForeignKey("dbo.Assignments", t => t.AssignmentId, cascadeDelete: true)
+                .ForeignKey("dbo.Courses", t => t.CourseId, cascadeDelete: true)
                 .ForeignKey("dbo.Students", t => t.StudentId, cascadeDelete: true)
                 .Index(t => t.StudentId)
-                .Index(t => t.AssignmentId);
+                .Index(t => t.AssignmentId)
+                .Index(t => t.CourseId);
             
             CreateTable(
                 "dbo.Trainers",
@@ -80,6 +83,7 @@ namespace IndividualProject.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Username = c.String(),
                         Password = c.String(),
+                        Salt = c.String(),
                         Role = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
@@ -132,6 +136,7 @@ namespace IndividualProject.Migrations
             DropForeignKey("dbo.StudentCourses", "Course_Id", "dbo.Courses");
             DropForeignKey("dbo.StudentCourses", "Student_Id", "dbo.Students");
             DropForeignKey("dbo.StudentAssignments", "StudentId", "dbo.Students");
+            DropForeignKey("dbo.StudentAssignments", "CourseId", "dbo.Courses");
             DropForeignKey("dbo.StudentAssignments", "AssignmentId", "dbo.Assignments");
             DropForeignKey("dbo.CourseAssignments", "Assignment_Id", "dbo.Assignments");
             DropForeignKey("dbo.CourseAssignments", "Course_Id", "dbo.Courses");
@@ -141,6 +146,7 @@ namespace IndividualProject.Migrations
             DropIndex("dbo.StudentCourses", new[] { "Student_Id" });
             DropIndex("dbo.CourseAssignments", new[] { "Assignment_Id" });
             DropIndex("dbo.CourseAssignments", new[] { "Course_Id" });
+            DropIndex("dbo.StudentAssignments", new[] { "CourseId" });
             DropIndex("dbo.StudentAssignments", new[] { "AssignmentId" });
             DropIndex("dbo.StudentAssignments", new[] { "StudentId" });
             DropTable("dbo.TrainerCourses");

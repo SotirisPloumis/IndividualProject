@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using IndividualProject.UI;
 using IndividualProject.DB;
 using IndividualProject.Model;
+using System.Security.Cryptography;
 
 namespace IndividualProject.Manager
 {
@@ -49,9 +50,11 @@ namespace IndividualProject.Manager
 				return false;
 			}
 
+			string encryptedPassword = CryptoManager.EncryptPassword(password1, out string encryptedSalt);
+
 			try
 			{
-				int headMasterSaved = DBUser.CreateUser(username, password1, "headmaster", out int id);
+				int headMasterSaved = DBUser.CreateUser(username, encryptedPassword, encryptedSalt, "headmaster", out int id);
 				if (headMasterSaved == 0)
 				{
 					throw new Exception("head master NOT saved");
@@ -91,21 +94,30 @@ namespace IndividualProject.Manager
 				return true;
 			}
 
-			ICollection<User> users = DBUser.ReadUsers();
 			User user;
 
 			try
 			{
-				user = users.Where(u => u.Username.Equals(username) && u.Password.Equals(password)).First();
+				user = DBUser.ReadUsers().Where(u => u.Username.Equals(username)).First();
+				string hash = user.Password;
+				string salt = user.Salt;
+				bool correctPassword = CryptoManager.ComparePassword(password, hash, salt);
+				if (!correctPassword)
+				{
+					throw new Exception();
+				}
+				loggedIn = true;
 				role = user.Role;
 				id = user.Id;
-				loggedIn = true;
 				return false;
 			}
-			catch (InvalidOperationException)
+			catch (Exception)
 			{
+				ConsoleUI.showLine("wrong credentials");
 				return true;
 			}
+			
 		}
+
 	}
 }

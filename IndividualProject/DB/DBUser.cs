@@ -10,12 +10,13 @@ namespace IndividualProject.DB
 {
 	public class DBUser
 	{
-		public static int CreateUser(string username, string password, string role, out int id)
+		public static int CreateUser(string username, string password, string salt, string role, out int id)
 		{
 			User u = new User()
 			{
 				Username = username,
 				Password = password,
+				Salt = salt,
 				Role = role
 			};
 

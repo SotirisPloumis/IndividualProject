@@ -68,9 +68,11 @@ namespace IndividualProject.Manager
 
 				int studentID;
 
+				string encryptedPassword = CryptoManager.EncryptPassword(password, out string encryptedSalt);
+
 				try
 				{
-					int userSaved = DBUser.CreateUser(username, password, "student", out studentID);
+					int userSaved = DBUser.CreateUser(username, encryptedPassword, encryptedSalt, "student", out studentID);
 					if (userSaved == 0)
 					{
 						throw new Exception("user NOT saved");
