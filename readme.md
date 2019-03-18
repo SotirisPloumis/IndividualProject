@@ -20,9 +20,9 @@ user can also logout and relogin as different role without exiting the Program
 Available operations per role:
 
 Student:
-	1. See his / her daily Schedule per Course (Check if he / she has a course active at a specific date)
-	2. See the dates of submission of his / her Assignments per Course
-	3. Submit any of his / her Assignments
+1. See his / her daily Schedule per Course (Check if he / she has a course active at a specific date)
+2. See the dates of submission of his / her Assignments per Course
+3. Submit any of his / her Assignments
 
 Trainer:
 	1. View all the Courses he / she is enrolled 
