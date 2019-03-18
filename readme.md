@@ -1,6 +1,6 @@
-﻿#Individual Project for C# BootCamp by AfDEmp
+﻿# Individual Project for C# BootCamp by AfDEmp
 
-###Created by Sotiris Ploumis
+### Created by Sotiris Ploumis
 
 Task: Create a program that manages a school (DB, roles, password hashing)
 
