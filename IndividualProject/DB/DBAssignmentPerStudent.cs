@@ -77,6 +77,37 @@ namespace IndividualProject.DB
 			
 		}
 
+		public static int SubmitAssignment(int studentid, int assignmentid, int courseid)
+		{
+			StudentAssignment sa;
+			using (SchoolContext sc = new SchoolContext())
+			{
+				try
+				{
+					sa = sc.StudentAssignments.Find(studentid, assignmentid, courseid);
+					if (sa == null)
+					{
+						return 0;
+					}
+					sa.submitted = true;
+					sa.submissionDate = DateTime.Now;
+
+					int result = sc.SaveChanges();
+
+					if (result == 0)
+					{
+						return 0;
+					}
+					return result;
+				}
+				catch (Exception)
+				{
+					return 0;
+				}
+
+			}
+		}
+
 		public static int DeleteAssignmentPerStudent(int studentID, int assignmentID, int courseID)
 		{
 			StudentAssignment saItem;

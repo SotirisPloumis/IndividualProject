@@ -78,7 +78,7 @@ namespace IndividualProject.Manager
 					Student s = item.Student;
 					Assignment a = item.Assignment;
 					Course c = item.Course;
-					ConsoleUI.showLine($"student {s.FirstName} {s.LastName} has assignment {a.Title} by course {c.Title}c");
+					ConsoleUI.showLine($"student {s.FirstName} {s.LastName} has assignment {a.Title} by course {c.Title}");
 				}
 			}
 			
@@ -151,6 +151,123 @@ namespace IndividualProject.Manager
 			else
 			{
 				ConsoleUI.showLine("assignment marked successfully");
+			}
+			ConsoleUI.ReadKey();
+			ConsoleUI.Clear();
+
+		}
+
+		public void SubmitAssignmentPerCoursePerStudent(int studentid)
+		{
+			ICollection<StudentAssignment> saList = DBAssignmentPerStudent.Read().Where(s=>s.StudentId == studentid).ToList();
+
+			if (saList.Count() == 0)
+			{
+				ConsoleUI.showLine("nothing to show");
+			}
+			else
+			{
+				ConsoleUI.showLine("my assignments");
+				foreach (StudentAssignment item in saList)
+				{
+					Assignment a = item.Assignment;
+					Course c = item.Course;
+					ConsoleUI.showMessage($"assignment {a.Id}: {a.Title} by course {c.Id}: {c.Title}, submitted: {item.submitted} ");
+					if (item.oralMark != -1 && item.totalMark != -1)
+					{
+						ConsoleUI.showLine($"({item.oralMark}/{item.totalMark})");
+					}
+					else
+					{
+						ConsoleUI.showLine("(-/-)");
+					}
+				}
+			}
+
+			bool exit;
+
+			exit = ConsoleUI.GetInt(out int selectedAssignment, "give assignment id: ");
+			if (exit )
+			{
+				return;
+			}
+
+			exit = ConsoleUI.GetInt(out int selectedCourse, "give course id: ");
+			if (exit)
+			{
+				return;
+			}
+
+			int result = DBAssignmentPerStudent.SubmitAssignment(studentid, selectedAssignment, selectedCourse);
+
+			if (result == 0)
+			{
+				ConsoleUI.showLine("error submitting assignment");
+			}
+			else
+			{
+				ConsoleUI.showLine("assignment submitted successfully");
+			}
+
+			ConsoleUI.ReadKey();
+			ConsoleUI.Clear();
+		}
+
+		public void ReadDueDates(int studentid)
+		{
+			ICollection<StudentAssignment> saList = DBAssignmentPerStudent.Read().Where(s => s.StudentId == studentid).ToList();
+
+			if (saList.Count() == 0)
+			{
+				ConsoleUI.showLine("nothing to show");
+			}
+			else
+			{
+				ConsoleUI.showLine("my assignments");
+				foreach (StudentAssignment item in saList)
+				{
+					Assignment a = item.Assignment;
+					Course c = item.Course;
+					ConsoleUI.showLine($"assignment {a.Id}: {a.Title} by course {c.Id}: {c.Title}, due {a.SubmissionDate} ");
+				}
+			}
+			ConsoleUI.ReadKey();
+			ConsoleUI.Clear();
+		}
+
+		public void ReadSchedule(int studentid)
+		{
+			ICollection<Student> me = DBStudentsPerCourse.ReadStudentWithCourses().Where(s=>s.Id == studentid).ToList();
+
+			ICollection<Course> myCourses = me.First().Courses;
+
+			if (myCourses.Count() == 0)
+			{
+				ConsoleUI.showLine("no courses for you at all!!!");
+			}
+			else
+			{
+				bool exit;
+
+				exit = ConsoleUI.GetDate(out DateTime? dateToSearch, "give date to search\n");
+				if (exit)
+				{
+					return;
+				}
+
+				myCourses = myCourses.Where(c => c.StartDate < dateToSearch && c.EndDate > dateToSearch).ToList();
+				if (myCourses.Count() == 0)
+				{
+					ConsoleUI.showLine("no courses for you for that date");
+				}
+				else
+				{
+					ConsoleUI.showLine($"in {dateToSearch} you will be having: ");
+					foreach (Course c in myCourses)
+					{
+						Console.WriteLine(c);
+					}
+				}
 			}
 			ConsoleUI.ReadKey();
 			ConsoleUI.Clear();

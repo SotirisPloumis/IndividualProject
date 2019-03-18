@@ -403,5 +403,14 @@ namespace IndividualProject.Manager
 			ConsoleUI.showLine("4. Delete");
 			ConsoleUI.showLine("0. Exit");
 		}
+
+		public void showPersonalMessage(int id)
+		{
+			ICollection<Student> students = DBStudent.ReadStudents();
+
+			Student s = students.Where(st => st.Id == id).First();
+
+			ConsoleUI.showLine($"Hello {s.FirstName} {s.LastName}");
+		}
 	}
 }

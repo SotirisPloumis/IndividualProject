@@ -28,6 +28,13 @@ namespace IndividualProject
 		markAssignmentsPerStudentPerCourse = 4,
 		logout = 9
 	}
+	enum StudentOptions
+	{
+		viewSchedule = 1,
+		viewDueDates = 2,
+		submitAssignment = 3,
+		logout = 9
+	}
 
 	enum CRUDOptions
 	{
@@ -73,7 +80,7 @@ namespace IndividualProject
 							loggedIn = trainerOptions(id);
 							break;
 						case "student":
-							Console.WriteLine("i am student");
+							loggedIn = studentOptions(id);
 							break;
 						default:
 							Console.WriteLine("i am other");
@@ -84,6 +91,7 @@ namespace IndividualProject
 				else
 				{
 					Console.WriteLine("wrong username or password");
+					Console.ReadKey();
 				}
 			} while (!loggedIn);
 			
@@ -216,6 +224,63 @@ namespace IndividualProject
 						manager4.MarkAssignmentsPerCoursePerStudent();
 						break;
 					case TrainerOptions.logout:
+						Console.WriteLine("logging out");
+						Console.ReadKey();
+						Console.Clear();
+						return false;
+					default:
+						break;
+				}
+
+			}
+			return true;
+		}
+
+		private static bool studentOptions(int studentID)
+		{
+			while (true)
+			{
+				StudentManager sm = new StudentManager();
+				sm.showPersonalMessage(studentID);
+				Console.WriteLine();
+
+				Console.WriteLine("1. view my schedule per course");
+				Console.WriteLine("2. view due date per assignment");
+				Console.WriteLine("3. submit assignment");
+				Console.WriteLine("9. Logout");
+				Console.WriteLine("0. Exit");
+
+				string input = Console.ReadLine();
+				Console.Clear();
+
+				bool goodInput = Int32.TryParse(input, out int choice);
+				if (!goodInput)
+				{
+					continue;
+				}
+
+				if (choice == 0)
+				{
+					break;
+				}
+
+				StudentOptions mainOption = (StudentOptions)choice;
+
+				switch (mainOption)
+				{
+					case StudentOptions.viewSchedule:
+						AssignmentPerStudentManager manager = new AssignmentPerStudentManager();
+						manager.ReadSchedule(studentID);
+						break;
+					case StudentOptions.viewDueDates:
+						AssignmentPerStudentManager manager2 = new AssignmentPerStudentManager();
+						manager2.ReadDueDates(studentID);
+						break;
+					case StudentOptions.submitAssignment:
+						AssignmentPerStudentManager manager3 = new AssignmentPerStudentManager();
+						manager3.SubmitAssignmentPerCoursePerStudent(studentID);
+						break;
+					case StudentOptions.logout:
 						Console.WriteLine("logging out");
 						Console.ReadKey();
 						Console.Clear();
