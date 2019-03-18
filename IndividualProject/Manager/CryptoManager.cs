@@ -30,7 +30,7 @@ namespace IndividualProject.Manager
 
 			var encryptedHash = Convert.ToBase64String(hash);
 
-			return encryptedHash == DBHash;
+			return encryptedHash.Equals(DBHash);
 		}
 
 		private static byte[] GetSalt(int maximumSaltLength)

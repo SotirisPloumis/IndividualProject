@@ -146,7 +146,7 @@ namespace IndividualProject.UI
 
 		public static void ReadKey()
 		{
-			Console.WriteLine("press a key to continue");
+			Console.WriteLine("press any key to continue");
 			Console.ReadKey();
 		}
 	}

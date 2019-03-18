@@ -36,5 +36,15 @@ namespace IndividualProject.Model
 
 		public DateTime submissionDate { get; set; }
 
+		public override string ToString()
+		{
+			Student s = this.Student;
+			Assignment a = this.Assignment;
+			Course c = this.Course;
+			bool isMarked = this.oralMark != -1 && this.totalMark != -1;
+			string marksString = isMarked ? $"({this.oralMark}/{this.totalMark})" : "not marked yet";
+			string submissionString = this.submitted ? $"submitted at {this.submissionDate}" : "not submitted yet";
+			return ($"student {s.Id} {s.FirstName} {s.LastName} has assignment {a.Id} {a.Title} by course {c.Id} {c.Title} {marksString} {submissionString}");
+		}
 	}
 }

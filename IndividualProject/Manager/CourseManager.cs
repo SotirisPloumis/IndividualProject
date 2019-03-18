@@ -43,11 +43,18 @@ namespace IndividualProject.Manager
 					return;
 				}
 
-				exit = ConsoleUI.GetString(out string type, $"{baseMessage}Course's type: ");
+				exit = ConsoleUI.GetInt(out int typeInput, $"{baseMessage}Course's type (1 = Full time, 2 = Part time): ");
 				if (exit)
 				{
 					return;
 				}
+				if (typeInput != 1 && typeInput != 2)
+				{
+					ConsoleUI.showLine("course type not accepted");
+					ConsoleUI.ReadKey();
+					continue;
+				}
+				string type = typeInput == 1 ? "Full time" : "Part time";
 
 				exit = ConsoleUI.GetDate(out DateTime? startDate, "Course's start date:\n");
 				if (exit)
@@ -59,6 +66,13 @@ namespace IndividualProject.Manager
 				if (exit)
 				{
 					return;
+				}
+
+				if (endDate <= startDate)
+				{
+					ConsoleUI.showLine("invalid dates: end date is before start date, IMPOSSIBRU!!");
+					ConsoleUI.ReadKey();
+					continue;
 				}
 
 				int result = DBCourse.CreateCourse(title, stream, type, (DateTime)startDate, (DateTime)endDate, out int id);

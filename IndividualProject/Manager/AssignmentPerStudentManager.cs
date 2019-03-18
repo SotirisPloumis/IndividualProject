@@ -75,10 +75,7 @@ namespace IndividualProject.Manager
 			{
 				foreach (StudentAssignment item in saList)
 				{
-					Student s = item.Student;
-					Assignment a = item.Assignment;
-					Course c = item.Course;
-					ConsoleUI.showLine($"student {s.FirstName} {s.LastName} has assignment {a.Title} by course {c.Title}");
+					ConsoleUI.showLine(item);
 				}
 			}
 			
@@ -99,10 +96,7 @@ namespace IndividualProject.Manager
 			{
 				foreach (StudentAssignment item in saList)
 				{
-					Student s = item.Student;
-					Assignment a = item.Assignment;
-					Course c = item.Course;
-					ConsoleUI.showLine($"student {s.Id} {s.FirstName} {s.LastName} has assignment {a.Id} {a.Title} by course {c.Id} {c.Title} ({item.oralMark}/{item.totalMark})");
+					ConsoleUI.showLine(item);
 				}
 			}
 
@@ -112,30 +106,54 @@ namespace IndividualProject.Manager
 			exit = ConsoleUI.GetInt(out int selectedStudent, "give student id: ");
 			if (exit)
 			{
+				ConsoleUI.ReadKey();
+				ConsoleUI.Clear();
 				return;
 			}
 
 			exit = ConsoleUI.GetInt(out int selectedAssignment, "give assignment id: ");
 			if (exit)
 			{
+				ConsoleUI.ReadKey();
+				ConsoleUI.Clear();
 				return;
 			}
 
 			exit = ConsoleUI.GetInt(out int selectedCourse, "give course id: ");
 			if (exit)
 			{
+				ConsoleUI.ReadKey();
+				ConsoleUI.Clear();
+				return;
+			}
+
+			StudentAssignment sa = saList.Where(i =>
+												i.StudentId == selectedStudent &&
+												i.CourseId == selectedCourse &&
+												i.AssignmentId == selectedAssignment
+												).First();
+
+			if (!sa.submitted)
+			{
+				ConsoleUI.showLine("this assignment is not yet submitted, please choose another submission");
+				ConsoleUI.ReadKey();
+				ConsoleUI.Clear();
 				return;
 			}
 
 			exit = ConsoleUI.GetInt(out int oralMark, "give new oral mark: ");
 			if (exit)
 			{
+				ConsoleUI.ReadKey();
+				ConsoleUI.Clear();
 				return;
 			}
 
 			exit = ConsoleUI.GetInt(out int totalMark, "give new total mark: ");
 			if (exit)
 			{
+				ConsoleUI.ReadKey();
+				ConsoleUI.Clear();
 				return;
 			}
 
@@ -170,17 +188,7 @@ namespace IndividualProject.Manager
 				ConsoleUI.showLine("my assignments");
 				foreach (StudentAssignment item in saList)
 				{
-					Assignment a = item.Assignment;
-					Course c = item.Course;
-					ConsoleUI.showMessage($"assignment {a.Id}: {a.Title} by course {c.Id}: {c.Title}, submitted: {item.submitted} ");
-					if (item.oralMark != -1 && item.totalMark != -1)
-					{
-						ConsoleUI.showLine($"({item.oralMark}/{item.totalMark})");
-					}
-					else
-					{
-						ConsoleUI.showLine("(-/-)");
-					}
+					ConsoleUI.showLine(item);
 				}
 			}
 
@@ -189,12 +197,16 @@ namespace IndividualProject.Manager
 			exit = ConsoleUI.GetInt(out int selectedAssignment, "give assignment id: ");
 			if (exit )
 			{
+				ConsoleUI.ReadKey();
+				ConsoleUI.Clear();
 				return;
 			}
 
 			exit = ConsoleUI.GetInt(out int selectedCourse, "give course id: ");
 			if (exit)
 			{
+				ConsoleUI.ReadKey();
+				ConsoleUI.Clear();
 				return;
 			}
 
@@ -228,7 +240,7 @@ namespace IndividualProject.Manager
 				{
 					Assignment a = item.Assignment;
 					Course c = item.Course;
-					ConsoleUI.showLine($"assignment {a.Id}: {a.Title} by course {c.Id}: {c.Title}, due {a.SubmissionDate} ");
+					ConsoleUI.showLine($"assignment {a.Id}: {a.Title} by course {c.Id}: {c.Title}, due {a.SubmissionDate}, submitted: {item.submitted} ");
 				}
 			}
 			ConsoleUI.ReadKey();
@@ -252,6 +264,8 @@ namespace IndividualProject.Manager
 				exit = ConsoleUI.GetDate(out DateTime? dateToSearch, "give date to search\n");
 				if (exit)
 				{
+					ConsoleUI.ReadKey();
+					ConsoleUI.Clear();
 					return;
 				}
 
