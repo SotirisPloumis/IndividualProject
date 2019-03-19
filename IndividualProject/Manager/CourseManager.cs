@@ -50,7 +50,7 @@ namespace IndividualProject.Manager
 				}
 				if (typeInput != 1 && typeInput != 2)
 				{
-					ConsoleUI.showLine("course type not accepted");
+					ConsoleUI.ShowLine("course type not accepted");
 					ConsoleUI.ReadKey();
 					continue;
 				}
@@ -70,7 +70,7 @@ namespace IndividualProject.Manager
 
 				if (endDate <= startDate)
 				{
-					ConsoleUI.showLine("invalid dates: end date is before start date, IMPOSSIBRU!!");
+					ConsoleUI.ShowLine("invalid dates: end date is before start date, IMPOSSIBRU!!");
 					ConsoleUI.ReadKey();
 					continue;
 				}
@@ -79,11 +79,11 @@ namespace IndividualProject.Manager
 
 				if (result == 0)
 				{
-					ConsoleUI.showLine("course could NOT be saved");
+					ConsoleUI.ShowLine("course could NOT be saved");
 				}
 				else
 				{
-					ConsoleUI.showLine($"course created with id: {id}");
+					ConsoleUI.ShowLine($"course created with id: {id}");
 				}
 
 				ConsoleUI.ReadKey();
@@ -96,13 +96,13 @@ namespace IndividualProject.Manager
 			ICollection<Course> courses = DBCourse.ReadCourses();
 			if (courses.Count() == 0)
 			{
-				ConsoleUI.showLine("No courses yet");
+				ConsoleUI.ShowLine("No courses yet");
 			}
 			else
 			{
 				foreach (Course c in courses)
 				{
-					ConsoleUI.showLine(c);
+					ConsoleUI.ShowLine(c);
 				}
 			}
 
@@ -119,17 +119,17 @@ namespace IndividualProject.Manager
 
 			if (courses.Count() == 0)
 			{
-				ConsoleUI.showLine("no courses yet");
+				ConsoleUI.ShowLine("no courses yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showLine("select course to update, type 0 to exit");
+				ConsoleUI.ShowLine("select course to update, type 0 to exit");
 				foreach (Course c in courses)
 				{
-					ConsoleUI.showLine(c);
+					ConsoleUI.ShowLine(c);
 				}
 			}
 			
@@ -149,19 +149,19 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showLine($"NO COURSE FOUND WITH ID: {CourseID}");
+				ConsoleUI.ShowLine($"NO COURSE FOUND WITH ID: {CourseID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
 
-			ConsoleUI.showLine($"you selected to edit course: {course.Title}");
+			ConsoleUI.ShowLine($"you selected to edit course: {course.Title}");
 
-			ConsoleUI.showLine($"select attribute to edit, type 0 anytime to exit");
-			ConsoleUI.showLine("1. Title");
-			ConsoleUI.showLine("2. Stream");
-			ConsoleUI.showLine("3. Type");
-			ConsoleUI.showLine("4. Date of start");
-			ConsoleUI.showLine("5. Date of end");
+			ConsoleUI.ShowLine($"select attribute to edit, type 0 anytime to exit");
+			ConsoleUI.ShowLine("1. Title");
+			ConsoleUI.ShowLine("2. Stream");
+			ConsoleUI.ShowLine("3. Type");
+			ConsoleUI.ShowLine("4. Date of start");
+			ConsoleUI.ShowLine("5. Date of end");
 
 			exit = ConsoleUI.GetInt(out int choice);
 			if (exit)
@@ -235,11 +235,11 @@ namespace IndividualProject.Manager
 
 			if (result == 0)
 			{
-				ConsoleUI.showLine("course update failed");
+				ConsoleUI.ShowLine("course update failed");
 			}
 			else
 			{
-				ConsoleUI.showLine("course updated successfully");
+				ConsoleUI.ShowLine("course updated successfully");
 			}
 			ConsoleUI.ReadKey();
 
@@ -254,17 +254,17 @@ namespace IndividualProject.Manager
 
 			if (courses.Count() == 0)
 			{
-				ConsoleUI.showLine("no courses yet");
+				ConsoleUI.ShowLine("no courses yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showLine("select course to delete, type 0 to exit");
+				ConsoleUI.ShowLine("select course to delete, type 0 to exit");
 				foreach (Course c in courses)
 				{
-					ConsoleUI.showLine(c);
+					ConsoleUI.ShowLine(c);
 				}
 			}
 			
@@ -282,7 +282,7 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showLine($"NO COURSE FOUND WITH ID: {CourseID}");
+				ConsoleUI.ShowLine($"NO COURSE FOUND WITH ID: {CourseID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -295,11 +295,11 @@ namespace IndividualProject.Manager
 				result = DBCourse.DeleteCourse(CourseID);
 				if (result == 0)
 				{
-					ConsoleUI.showLine("delete failed");
+					ConsoleUI.ShowLine("delete failed");
 				}
 				else
 				{
-					ConsoleUI.showLine("course deleted successfully");
+					ConsoleUI.ShowLine("course deleted successfully");
 				}
 				ConsoleUI.ReadKey();
 			}
@@ -307,12 +307,12 @@ namespace IndividualProject.Manager
 
 		public void ShowCRUDMenu()
 		{
-			ConsoleUI.showLine($"select action for courses");
-			ConsoleUI.showLine("1. Create");
-			ConsoleUI.showLine("2. Read");
-			ConsoleUI.showLine("3. Update");
-			ConsoleUI.showLine("4. Delete");
-			ConsoleUI.showLine("0. Exit");
+			ConsoleUI.ShowLine($"select action for courses");
+			ConsoleUI.ShowLine("1. Create");
+			ConsoleUI.ShowLine("2. Read");
+			ConsoleUI.ShowLine("3. Update");
+			ConsoleUI.ShowLine("4. Delete");
+			ConsoleUI.ShowLine("0. Exit");
 		}
 	}
 }

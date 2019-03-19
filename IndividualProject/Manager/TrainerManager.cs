@@ -74,12 +74,12 @@ namespace IndividualProject.Manager
 				}
 				catch (Exception e)
 				{
-					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ShowLine(e.Message);
 					ConsoleUI.ReadKey();
 					return;
 				}
 
-				ConsoleUI.showLine($"user {username} saved");
+				ConsoleUI.ShowLine($"user {username} saved");
 
 				try
 				{
@@ -91,12 +91,12 @@ namespace IndividualProject.Manager
 				}
 				catch (Exception e)
 				{
-					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ShowLine(e.Message);
 					ConsoleUI.ReadKey();
 					return;
 				}
 
-				ConsoleUI.showLine("trainer created");
+				ConsoleUI.ShowLine("trainer created");
 
 				ConsoleUI.ReadKey();
 
@@ -108,13 +108,13 @@ namespace IndividualProject.Manager
 			ICollection<Trainer> trainers = DBTrainer.ReadTrainers();
 			if (trainers.Count() == 0)
 			{
-				ConsoleUI.showLine("no trainers yet");
+				ConsoleUI.ShowLine("no trainers yet");
 			}
 			else
 			{
 				foreach (Trainer t in trainers)
 				{
-					ConsoleUI.showLine(t);
+					ConsoleUI.ShowLine(t);
 				}
 			}
 			ConsoleUI.ReadKey();
@@ -130,17 +130,17 @@ namespace IndividualProject.Manager
 
 			if (trainers.Count() == 0)
 			{
-				ConsoleUI.showLine("No trainers yet");
+				ConsoleUI.ShowLine("No trainers yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showLine("select trainer to update, type 0 to exit");
+				ConsoleUI.ShowLine("select trainer to update, type 0 to exit");
 				foreach (Trainer t in trainers)
 				{
-					ConsoleUI.showLine(t);
+					ConsoleUI.ShowLine(t);
 				}
 			}
 			
@@ -160,19 +160,19 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showLine($"NO TRAINER FOUND WITH ID: {TrainerID}");
+				ConsoleUI.ShowLine($"NO TRAINER FOUND WITH ID: {TrainerID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
 
-			ConsoleUI.showLine($"you selected to edit trainer: {trainer.FirstName} {trainer.LastName}");
+			ConsoleUI.ShowLine($"you selected to edit trainer: {trainer.FirstName} {trainer.LastName}");
 
-			ConsoleUI.showLine($"select attribute to edit, type 0 anytime to exit");
-			ConsoleUI.showLine("1. Username");
-			ConsoleUI.showLine("2. Password");
-			ConsoleUI.showLine("3. First name");
-			ConsoleUI.showLine("4. Last name");
-			ConsoleUI.showLine("5. Subject");
+			ConsoleUI.ShowLine($"select attribute to edit, type 0 anytime to exit");
+			ConsoleUI.ShowLine("1. Username");
+			ConsoleUI.ShowLine("2. Password");
+			ConsoleUI.ShowLine("3. First name");
+			ConsoleUI.ShowLine("4. Last name");
+			ConsoleUI.ShowLine("5. Subject");
 
 			exit = ConsoleUI.GetInt(out int choice);
 			if (exit)
@@ -235,11 +235,11 @@ namespace IndividualProject.Manager
 					{
 						throw new Exception("trainer update failed");
 					}
-					ConsoleUI.showLine("trainer updated successfully");
+					ConsoleUI.ShowLine("trainer updated successfully");
 				}
 				catch (Exception e)
 				{
-					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ShowLine(e.Message);
 					ConsoleUI.ReadKey();
 					return;
 				}
@@ -253,11 +253,11 @@ namespace IndividualProject.Manager
 					{
 						throw new Exception("user update failed");
 					}
-					ConsoleUI.showLine("user updated successfully");
+					ConsoleUI.ShowLine("user updated successfully");
 				}
 				catch (Exception e)
 				{
-					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ShowLine(e.Message);
 					ConsoleUI.ReadKey();
 					return;
 				}
@@ -277,17 +277,17 @@ namespace IndividualProject.Manager
 
 			if (trainers.Count() == 0)
 			{
-				ConsoleUI.showLine("no trainers yet");
+				ConsoleUI.ShowLine("no trainers yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showLine("select trainer to delete, type 0 to exit");
+				ConsoleUI.ShowLine("select trainer to delete, type 0 to exit");
 				foreach (Trainer t in trainers)
 				{
-					ConsoleUI.showLine(t);
+					ConsoleUI.ShowLine(t);
 				}
 			}
 			
@@ -305,7 +305,7 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showLine($"NO TRAINER FOUND WITH ID: {TrainerID}");
+				ConsoleUI.ShowLine($"NO TRAINER FOUND WITH ID: {TrainerID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -325,7 +325,7 @@ namespace IndividualProject.Manager
 				}
 				catch (Exception e)
 				{
-					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ShowLine(e.Message);
 					ConsoleUI.ReadKey();
 					return;
 				}
@@ -340,12 +340,12 @@ namespace IndividualProject.Manager
 				}
 				catch (Exception e)
 				{
-					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ShowLine(e.Message);
 					ConsoleUI.ReadKey();
 					return;
 				}
 
-				ConsoleUI.showLine("trainer deleted successfully");
+				ConsoleUI.ShowLine("trainer deleted successfully");
 
 				ConsoleUI.ReadKey();
 			}
@@ -353,20 +353,20 @@ namespace IndividualProject.Manager
 
 		public void ShowCRUDMenu()
 		{
-			ConsoleUI.showLine($"select action for trainers");
-			ConsoleUI.showLine("1. Create");
-			ConsoleUI.showLine("2. Read");
-			ConsoleUI.showLine("3. Update");
-			ConsoleUI.showLine("4. Delete");
-			ConsoleUI.showLine("0. Exit");
+			ConsoleUI.ShowLine($"select action for trainers");
+			ConsoleUI.ShowLine("1. Create");
+			ConsoleUI.ShowLine("2. Read");
+			ConsoleUI.ShowLine("3. Update");
+			ConsoleUI.ShowLine("4. Delete");
+			ConsoleUI.ShowLine("0. Exit");
 		}
 
-		public void showPersonalMessage(int id)
+		public void ShowPersonalMessage(int id)
 		{
 			ICollection<Trainer> trainers = DBTrainer.ReadTrainers();
 			Trainer me = trainers.Where(t => t.Id == id).First();
 
-			ConsoleUI.showLine($"Hello {me.FirstName} {me.LastName}");
+			ConsoleUI.ShowLine($"Hello {me.FirstName} {me.LastName}");
 		}
 	}
 }

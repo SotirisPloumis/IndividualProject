@@ -16,10 +16,10 @@ namespace IndividualProject.DB
 				StudentId = studentID,
 				CourseId = courseID,
 				AssignmentId = assignmentID,
-				oralMark = -1,
-				totalMark = -1,
-				submitted = false,
-				submissionDate = new DateTime(1800,1,1)
+				OralMark = -1,
+				TotalMark = -1,
+				Submitted = false,
+				SubmissionDate = new DateTime(1800,1,1)
 			};
 			using(SchoolContext sc = new SchoolContext())
 			{
@@ -57,8 +57,8 @@ namespace IndividualProject.DB
 					{
 						return 0;
 					}
-					sa.oralMark = oralMark;
-					sa.totalMark = totalMark;
+					sa.OralMark = oralMark;
+					sa.TotalMark = totalMark;
 
 					int result = sc.SaveChanges();
 
@@ -89,8 +89,8 @@ namespace IndividualProject.DB
 					{
 						return 0;
 					}
-					sa.submitted = true;
-					sa.submissionDate = DateTime.Now;
+					sa.Submitted = true;
+					sa.SubmissionDate = DateTime.Now;
 
 					int result = sc.SaveChanges();
 

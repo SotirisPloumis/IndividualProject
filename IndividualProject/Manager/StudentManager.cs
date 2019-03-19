@@ -80,12 +80,12 @@ namespace IndividualProject.Manager
 				}
 				catch (Exception e)
 				{
-					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ShowLine(e.Message);
 					ConsoleUI.ReadKey();
 					return;
 				}
 
-				ConsoleUI.showLine($"user {username} saved");
+				ConsoleUI.ShowLine($"user {username} saved");
 
 				try
 				{
@@ -97,12 +97,12 @@ namespace IndividualProject.Manager
 				}
 				catch (Exception e)
 				{
-					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ShowLine(e.Message);
 					ConsoleUI.ReadKey();
 					return;
 				}
 
-				ConsoleUI.showLine("student created");
+				ConsoleUI.ShowLine("student created");
 
 				ConsoleUI.ReadKey();
 
@@ -114,13 +114,13 @@ namespace IndividualProject.Manager
 			ICollection<Student> students = DBStudent.ReadStudents();
 			if (students.Count() == 0)
 			{
-				ConsoleUI.showLine("No students yet");
+				ConsoleUI.ShowLine("No students yet");
 			}
 			else
 			{
 				foreach (Student s in students)
 				{
-					ConsoleUI.showLine(s);
+					ConsoleUI.ShowLine(s);
 				}
 			}
 			
@@ -135,17 +135,17 @@ namespace IndividualProject.Manager
 			ICollection<Student> students = DBStudent.ReadStudents();
 			if (students.Count() == 0)
 			{
-				ConsoleUI.showLine("No students yet");
+				ConsoleUI.ShowLine("No students yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showLine("select student to update, type 0 to exit");
+				ConsoleUI.ShowLine("select student to update, type 0 to exit");
 				foreach (Student s in students)
 				{
-					ConsoleUI.showLine(s);
+					ConsoleUI.ShowLine(s);
 				}
 			}
 			
@@ -165,20 +165,20 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showLine($"NO STUDENT FOUND WITH ID: {StudentID}");
+				ConsoleUI.ShowLine($"NO STUDENT FOUND WITH ID: {StudentID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
 			
-			ConsoleUI.showLine($"you selected to edit student: {student.FirstName} {student.LastName}");
+			ConsoleUI.ShowLine($"you selected to edit student: {student.FirstName} {student.LastName}");
 
-			ConsoleUI.showLine($"select attribute to edit, type 0 anytime to exit");
-			ConsoleUI.showLine("1. Username");
-			ConsoleUI.showLine("2. Password");
-			ConsoleUI.showLine("3. First name");
-			ConsoleUI.showLine("4. Last name");
-			ConsoleUI.showLine("5. Date of birth");
-			ConsoleUI.showLine("6. Fees");
+			ConsoleUI.ShowLine($"select attribute to edit, type 0 anytime to exit");
+			ConsoleUI.ShowLine("1. Username");
+			ConsoleUI.ShowLine("2. Password");
+			ConsoleUI.ShowLine("3. First name");
+			ConsoleUI.ShowLine("4. Last name");
+			ConsoleUI.ShowLine("5. Date of birth");
+			ConsoleUI.ShowLine("6. Fees");
 			
 
 			exit = ConsoleUI.GetInt(out int choice);
@@ -305,10 +305,10 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception e)
 			{
-				ConsoleUI.showLine(e.Message);
+				ConsoleUI.ShowLine(e.Message);
 			}
 
-			ConsoleUI.showLine("student updated successfully");
+			ConsoleUI.ShowLine("student updated successfully");
 
 			ConsoleUI.ReadKey();
 
@@ -322,17 +322,17 @@ namespace IndividualProject.Manager
 			ICollection<Student> students = DBStudent.ReadStudents();
 			if (students.Count() == 0)
 			{
-				ConsoleUI.showLine("No students yet");
+				ConsoleUI.ShowLine("No students yet");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
 			}
 			else
 			{
-				ConsoleUI.showLine("select student to delete, type 0 to exit");
+				ConsoleUI.ShowLine("select student to delete, type 0 to exit");
 				foreach (Student s in students)
 				{
-					ConsoleUI.showLine(s);
+					ConsoleUI.ShowLine(s);
 				}
 			}
 			
@@ -350,7 +350,7 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showLine($"NO STUDENT FOUND WITH ID: {StudentID}");
+				ConsoleUI.ShowLine($"NO STUDENT FOUND WITH ID: {StudentID}");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -370,7 +370,7 @@ namespace IndividualProject.Manager
 				}
 				catch (Exception e)
 				{
-					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ShowLine(e.Message);
 					ConsoleUI.ReadKey();
 					return;
 				}
@@ -385,12 +385,12 @@ namespace IndividualProject.Manager
 				}
 				catch (Exception e)
 				{
-					ConsoleUI.showLine(e.Message);
+					ConsoleUI.ShowLine(e.Message);
 					ConsoleUI.ReadKey();
 					return;
 				}
 
-				ConsoleUI.showLine("student deleted successfully");
+				ConsoleUI.ShowLine("student deleted successfully");
 
 				ConsoleUI.ReadKey();
 			}
@@ -398,21 +398,21 @@ namespace IndividualProject.Manager
 
 		public void ShowCRUDMenu()
 		{
-			ConsoleUI.showLine($"select action for students");
-			ConsoleUI.showLine("1. Create");
-			ConsoleUI.showLine("2. Read");
-			ConsoleUI.showLine("3. Update");
-			ConsoleUI.showLine("4. Delete");
-			ConsoleUI.showLine("0. Exit");
+			ConsoleUI.ShowLine($"select action for students");
+			ConsoleUI.ShowLine("1. Create");
+			ConsoleUI.ShowLine("2. Read");
+			ConsoleUI.ShowLine("3. Update");
+			ConsoleUI.ShowLine("4. Delete");
+			ConsoleUI.ShowLine("0. Exit");
 		}
 
-		public void showPersonalMessage(int id)
+		public void ShowPersonalMessage(int id)
 		{
 			ICollection<Student> students = DBStudent.ReadStudents();
 
 			Student s = students.Where(st => st.Id == id).First();
 
-			ConsoleUI.showLine($"Hello {s.FirstName} {s.LastName}");
+			ConsoleUI.ShowLine($"Hello {s.FirstName} {s.LastName}");
 		}
 	}
 }

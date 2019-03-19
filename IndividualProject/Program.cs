@@ -12,7 +12,7 @@ namespace IndividualProject
 		static void Main(string[] args)
 		{
 			
-			Menu.start();
+			Menu.Start();
 		}
 	}
 }

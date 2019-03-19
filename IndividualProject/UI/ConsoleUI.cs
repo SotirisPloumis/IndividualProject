@@ -116,7 +116,7 @@ namespace IndividualProject.UI
 			
 		}
 
-		public static void showLine<T>(T message)
+		public static void ShowLine<T>(T message)
 		{
 			if (message == null)
 			{
@@ -129,12 +129,12 @@ namespace IndividualProject.UI
 			
 		}
 
-		public static void changeLine()
+		public static void ChangeLine()
 		{
 			Console.WriteLine();
 		}
 
-		public static void showMessage<T>(T message)
+		public static void ShowMessage<T>(T message)
 		{
 			Console.Write(message.ToString());
 		}

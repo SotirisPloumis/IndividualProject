@@ -25,16 +25,15 @@ namespace IndividualProject.Manager
 				result = DBAssignmentPerStudent.CreateAssignmentPerNewStudent(studentID, courseID, a.Id);
 				if (result == 0)
 				{
-					ConsoleUI.showLine("an error occured");
+					ConsoleUI.ShowLine("an error occured");
 					ConsoleUI.ReadKey();
 					return;
 				}
 				else
 				{
-					ConsoleUI.showLine($"assignment id: {a.Id} saved for student id: {studentID} and course id {courseID}");
+					ConsoleUI.ShowLine($"assignment id: {a.Id} saved for student id: {studentID} and course id {courseID}");
 				}
 			}
-			ConsoleUI.ReadKey();
 		}
 
 		public void CreateFromNewAssignment(int assignmentID, int courseID)
@@ -51,16 +50,15 @@ namespace IndividualProject.Manager
 				result = DBAssignmentPerStudent.CreateAssignmentPerNewStudent(s.Id, courseID, assignmentID);
 				if (result == 0)
 				{
-					ConsoleUI.showLine("an error occured");
+					ConsoleUI.ShowLine("an error occured");
 					ConsoleUI.ReadKey();
 					return;
 				}
 				else
 				{
-					ConsoleUI.showLine($"assignment id: {assignmentID} saved for student id: {s.Id} and course id {courseID}");
+					ConsoleUI.ShowLine($"assignment id: {assignmentID} saved for student id: {s.Id} and course id {courseID}");
 				}
 			}
-			ConsoleUI.ReadKey();
 		}
 
 		public void ReadAssignmentsPerCoursePerStudent()
@@ -69,13 +67,13 @@ namespace IndividualProject.Manager
 
 			if (saList.Count() == 0)
 			{
-				ConsoleUI.showLine("nothing to show");
+				ConsoleUI.ShowLine("nothing to show");
 			}
 			else
 			{
 				foreach (StudentAssignment item in saList)
 				{
-					ConsoleUI.showLine(item);
+					ConsoleUI.ShowLine(item);
 				}
 			}
 			
@@ -90,17 +88,17 @@ namespace IndividualProject.Manager
 
 			if (saList.Count() == 0)
 			{
-				ConsoleUI.showLine("nothing to show");
+				ConsoleUI.ShowLine("nothing to show");
 			}
 			else
 			{
 				foreach (StudentAssignment item in saList)
 				{
-					ConsoleUI.showLine(item);
+					ConsoleUI.ShowLine(item);
 				}
 			}
 
-			ConsoleUI.showLine("select student, assignment and course to mark or type 0 to exit");
+			ConsoleUI.ShowLine("select student, assignment and course to mark or type 0 to exit");
 			bool exit;
 
 			exit = ConsoleUI.GetInt(out int selectedStudent, "give student id: ");
@@ -133,9 +131,9 @@ namespace IndividualProject.Manager
 												i.AssignmentId == selectedAssignment
 												).First();
 
-			if (!sa.submitted)
+			if (!sa.Submitted)
 			{
-				ConsoleUI.showLine("this assignment is not yet submitted, please choose another submission");
+				ConsoleUI.ShowLine("this assignment is not yet submitted, please choose another submission");
 				ConsoleUI.ReadKey();
 				ConsoleUI.Clear();
 				return;
@@ -164,11 +162,11 @@ namespace IndividualProject.Manager
 																totalMark);
 			if (result == 0)
 			{
-				ConsoleUI.showLine("error marking assignment");
+				ConsoleUI.ShowLine("error marking assignment");
 			}
 			else
 			{
-				ConsoleUI.showLine("assignment marked successfully");
+				ConsoleUI.ShowLine("assignment marked successfully");
 			}
 			ConsoleUI.ReadKey();
 			ConsoleUI.Clear();
@@ -181,14 +179,14 @@ namespace IndividualProject.Manager
 
 			if (saList.Count() == 0)
 			{
-				ConsoleUI.showLine("nothing to show");
+				ConsoleUI.ShowLine("nothing to show");
 			}
 			else
 			{
-				ConsoleUI.showLine("my assignments");
+				ConsoleUI.ShowLine("my assignments");
 				foreach (StudentAssignment item in saList)
 				{
-					ConsoleUI.showLine(item);
+					ConsoleUI.ShowLine(item);
 				}
 			}
 
@@ -214,11 +212,11 @@ namespace IndividualProject.Manager
 
 			if (result == 0)
 			{
-				ConsoleUI.showLine("error submitting assignment");
+				ConsoleUI.ShowLine("error submitting assignment");
 			}
 			else
 			{
-				ConsoleUI.showLine("assignment submitted successfully");
+				ConsoleUI.ShowLine("assignment submitted successfully");
 			}
 
 			ConsoleUI.ReadKey();
@@ -231,16 +229,16 @@ namespace IndividualProject.Manager
 
 			if (saList.Count() == 0)
 			{
-				ConsoleUI.showLine("nothing to show");
+				ConsoleUI.ShowLine("nothing to show");
 			}
 			else
 			{
-				ConsoleUI.showLine("my assignments");
+				ConsoleUI.ShowLine("my assignments");
 				foreach (StudentAssignment item in saList)
 				{
 					Assignment a = item.Assignment;
 					Course c = item.Course;
-					ConsoleUI.showLine($"assignment {a.Id}: {a.Title} by course {c.Id}: {c.Title}, due {a.SubmissionDate}, submitted: {item.submitted} ");
+					ConsoleUI.ShowLine($"assignment {a.Id}: {a.Title} by course {c.Id}: {c.Title}, due {a.SubmissionDate}, submitted: {item.Submitted} ");
 				}
 			}
 			ConsoleUI.ReadKey();
@@ -255,7 +253,7 @@ namespace IndividualProject.Manager
 
 			if (myCourses.Count() == 0)
 			{
-				ConsoleUI.showLine("no courses for you at all!!!");
+				ConsoleUI.ShowLine("no courses for you at all!!!");
 			}
 			else
 			{
@@ -272,11 +270,11 @@ namespace IndividualProject.Manager
 				myCourses = myCourses.Where(c => c.StartDate < dateToSearch && c.EndDate > dateToSearch).ToList();
 				if (myCourses.Count() == 0)
 				{
-					ConsoleUI.showLine("no courses for you for that date");
+					ConsoleUI.ShowLine("no courses for you for that date");
 				}
 				else
 				{
-					ConsoleUI.showLine($"in {dateToSearch} you will be having: ");
+					ConsoleUI.ShowLine($"in {dateToSearch} you will be having: ");
 					foreach (Course c in myCourses)
 					{
 						Console.WriteLine(c);
@@ -300,12 +298,12 @@ namespace IndividualProject.Manager
 				result = DBAssignmentPerStudent.DeleteAssignmentPerStudent(item.StudentId, assignmentID, courseID);
 				if (result == 0)
 				{
-					ConsoleUI.showLine("error occured");
+					ConsoleUI.ShowLine("error occured");
 					return;
 				}
 				else
 				{
-					ConsoleUI.showLine($"assignment {assignmentID} for {item.StudentId} deleted");
+					ConsoleUI.ShowLine($"assignment {assignmentID} for {item.StudentId} deleted");
 				}
 			}
 			
@@ -323,12 +321,12 @@ namespace IndividualProject.Manager
 				result = DBAssignmentPerStudent.DeleteAssignmentPerStudent(studentID, item.AssignmentId, courseID);
 				if (result == 0)
 				{
-					ConsoleUI.showLine("error occured");
+					ConsoleUI.ShowLine("error occured");
 					return;
 				}
 				else
 				{
-					ConsoleUI.showLine($"assignment {item.AssignmentId} for student {studentID} deleted");
+					ConsoleUI.ShowLine($"assignment {item.AssignmentId} for student {studentID} deleted");
 				}
 			}
 			

@@ -28,6 +28,7 @@ namespace IndividualProject
 		markAssignmentsPerStudentPerCourse = 4,
 		logout = 9
 	}
+
 	enum StudentOptions
 	{
 		viewSchedule = 1,
@@ -46,8 +47,35 @@ namespace IndividualProject
 
 	public static class Menu
 	{
-		public static void start()
+		public static void Start()
 		{
+			bool emptyDB = AutoManager.IsEmptyDB();
+			if (emptyDB)
+			{
+				Console.WriteLine("DB is empty, do you want to auto generate? [y/n]");
+				string autoGenerate;
+
+				while (true)
+				{
+					autoGenerate = Console.ReadLine();
+					if (autoGenerate.Equals("y"))
+					{
+						AutoManager.AutoGenerate();
+						break;
+					}
+					else if(autoGenerate.Equals("n"))
+					{
+						break;
+					}
+					else
+					{
+						continue;
+					}
+				}
+
+				
+			}
+
 			bool headMasterExists = AccountManager.HeadMasterExists();
 
 			if (!headMasterExists)
@@ -74,13 +102,13 @@ namespace IndividualProject
 					switch (role)
 					{
 						case "headmaster":
-							loggedIn = headMasterOptions();
+							loggedIn = SelectHeadMasterOption();
 							break;
 						case "trainer":
-							loggedIn = trainerOptions(id);
+							loggedIn = SelectTrainerOption(id);
 							break;
 						case "student":
-							loggedIn = studentOptions(id);
+							loggedIn = SelectStudentOption(id);
 							break;
 						default:
 							Console.WriteLine("i am other");
@@ -97,7 +125,7 @@ namespace IndividualProject
 			
 		}
 
-		private static bool headMasterOptions()
+		private static bool SelectHeadMasterOption()
 		{
 			while (true)
 			{
@@ -167,19 +195,19 @@ namespace IndividualProject
 
 				if (manager != null)
 				{
-					headMasterCRUD(manager);
+					SelectHeadMasterCRUDOption(manager);
 				}
 				
 			}
 			return true;
 		}
 
-		private static bool trainerOptions(int trainerID)
+		private static bool SelectTrainerOption(int trainerID)
 		{
 			while (true)
 			{
 				TrainerManager tm = new TrainerManager();
-				tm.showPersonalMessage(trainerID);
+				tm.ShowPersonalMessage(trainerID);
 				Console.WriteLine();
 
 				Console.WriteLine("1. view my courses");
@@ -236,12 +264,12 @@ namespace IndividualProject
 			return true;
 		}
 
-		private static bool studentOptions(int studentID)
+		private static bool SelectStudentOption(int studentID)
 		{
 			while (true)
 			{
 				StudentManager sm = new StudentManager();
-				sm.showPersonalMessage(studentID);
+				sm.ShowPersonalMessage(studentID);
 				Console.WriteLine();
 
 				Console.WriteLine("1. view my schedule per course");
@@ -293,7 +321,7 @@ namespace IndividualProject
 			return true;
 		}
 
-		private static void headMasterCRUD(IManager manager)
+		private static void SelectHeadMasterCRUDOption(IManager manager)
 		{
 			while (true)
 			{

@@ -23,7 +23,7 @@ namespace IndividualProject.Manager
 		{
 			ICollection<User> users = DBUser.ReadUsers();
 
-			ConsoleUI.showLine("press 0 anytime to exit");
+			ConsoleUI.ShowLine("press 0 anytime to exit");
 			bool exit;
 
 			exit = ConsoleUI.GetString(out string username, "give username: ");
@@ -46,7 +46,7 @@ namespace IndividualProject.Manager
 
 			if (!password1.Equals(password2))
 			{
-				ConsoleUI.showLine("passwords are not the same!!");
+				ConsoleUI.ShowLine("passwords are not the same!!");
 				return false;
 			}
 
@@ -62,12 +62,12 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception e)
 			{
-				ConsoleUI.showLine(e.Message);
+				ConsoleUI.ShowLine(e.Message);
 				ConsoleUI.ReadKey();
 				return false;
 			}
 
-			ConsoleUI.showLine("head master created");
+			ConsoleUI.ShowLine("head master created");
 
 			ConsoleUI.ReadKey();
 
@@ -76,7 +76,7 @@ namespace IndividualProject.Manager
 
 		public static bool Login(out bool loggedIn, out string role, out int id)
 		{
-			ConsoleUI.showLine("press 0 anytime to exit");
+			ConsoleUI.ShowLine("press 0 anytime to exit");
 			bool exit;
 			loggedIn = false;
 			role = "";
@@ -113,7 +113,7 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showLine("wrong credentials");
+				ConsoleUI.ShowLine("wrong credentials");
 				return true;
 			}
 			

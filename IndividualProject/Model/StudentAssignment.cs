@@ -28,22 +28,22 @@ namespace IndividualProject.Model
 		public int CourseId { get; set; }
 		public virtual Course Course { get; set; }
 
-		public int oralMark { get; set; }
+		public int OralMark { get; set; }
 
-		public int totalMark { get; set; }
+		public int TotalMark { get; set; }
 
-		public bool submitted { get; set; }
+		public bool Submitted { get; set; }
 
-		public DateTime submissionDate { get; set; }
+		public DateTime SubmissionDate { get; set; }
 
 		public override string ToString()
 		{
 			Student s = this.Student;
 			Assignment a = this.Assignment;
 			Course c = this.Course;
-			bool isMarked = this.oralMark != -1 && this.totalMark != -1;
-			string marksString = isMarked ? $"({this.oralMark}/{this.totalMark})" : "not marked yet";
-			string submissionString = this.submitted ? $"submitted at {this.submissionDate}" : "not submitted yet";
+			bool isMarked = this.OralMark != -1 && this.TotalMark != -1;
+			string marksString = isMarked ? $"({this.OralMark}/{this.TotalMark})" : "not marked yet";
+			string submissionString = this.Submitted ? $"submitted at {this.SubmissionDate}" : "not submitted yet";
 			return ($"student {s.Id} {s.FirstName} {s.LastName} has assignment {a.Id} {a.Title} by course {c.Id} {c.Title} {marksString} {submissionString}");
 		}
 	}

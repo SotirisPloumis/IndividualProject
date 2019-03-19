@@ -16,41 +16,41 @@ namespace IndividualProject.Manager
 		{
 			bool exit;
 
-			ConsoleUI.showLine("Students");
+			ConsoleUI.ShowLine("Students");
 			ICollection<Student> students = DBStudentsPerCourse.ReadStudentWithCourses();
 
 			if (students.Count() == 0)
 			{
-				ConsoleUI.showLine("no students yet");
+				ConsoleUI.ShowLine("no students yet");
 			}
 			else
 			{
 				foreach (Student s in students)
 				{
-					ConsoleUI.showLine(s);
+					ConsoleUI.ShowLine(s);
 				}
 			}
 
-			ConsoleUI.changeLine();
+			ConsoleUI.ChangeLine();
 
-			ConsoleUI.showLine("Courses");
+			ConsoleUI.ShowLine("Courses");
 			ICollection<Course> courses = DBStudentsPerCourse.ReadCoursesWithStudents();
 
 			if (courses.Count() == 0)
 			{
-				ConsoleUI.showLine("no courses yet");
+				ConsoleUI.ShowLine("no courses yet");
 			}
 			else
 			{
 				foreach(Course c in courses)
 				{
-					ConsoleUI.showLine(c);
+					ConsoleUI.ShowLine(c);
 				}
 			}
 
-			ConsoleUI.changeLine();
+			ConsoleUI.ChangeLine();
 
-			ConsoleUI.showLine("press 0 anytime to exit");
+			ConsoleUI.ShowLine("press 0 anytime to exit");
 
 			exit = ConsoleUI.GetInt(out int selectedStudent, "give student id to connect: ");
 			if (exit)
@@ -66,7 +66,7 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showLine($"NO STUDENT FOUND FOR ID {selectedStudent}");
+				ConsoleUI.ShowLine($"NO STUDENT FOUND FOR ID {selectedStudent}");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -85,7 +85,7 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showLine($"NO COURSE FOUND FOR ID {selectedCourse}");
+				ConsoleUI.ShowLine($"NO COURSE FOUND FOR ID {selectedCourse}");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -94,7 +94,7 @@ namespace IndividualProject.Manager
 
 			if (courseHasStudent)
 			{
-				ConsoleUI.showLine("this course already connects to this student");
+				ConsoleUI.ShowLine("this course already connects to this student");
 				//ConsoleUI.ReadKey();
 				//return;
 			}
@@ -103,7 +103,7 @@ namespace IndividualProject.Manager
 
 			if (studentHasCourse)
 			{
-				ConsoleUI.showLine("this student already connects to this course");
+				ConsoleUI.ShowLine("this student already connects to this course");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -112,11 +112,11 @@ namespace IndividualProject.Manager
 
 			if (result == 0)
 			{
-				ConsoleUI.showLine("connection could NOT be made");
+				ConsoleUI.ShowLine("connection could NOT be made");
 			}
 			else
 			{
-				ConsoleUI.showLine("connection saved");
+				ConsoleUI.ShowLine("connection saved");
 				//Add student to assignments of this course
 				AssignmentPerStudentManager apcm = new AssignmentPerStudentManager();
 				apcm.CreateFromNewStudent(selectedStudent, selectedCourse);
@@ -129,29 +129,29 @@ namespace IndividualProject.Manager
 			ICollection<Course> courses = DBStudentsPerCourse.ReadCoursesWithStudents();
 			if (courses.Count() == 0)
 			{
-				ConsoleUI.showLine("No courses yet");
+				ConsoleUI.ShowLine("No courses yet");
 			}
 			else
 			{
-				ConsoleUI.showLine("List of courses with students\n");
+				ConsoleUI.ShowLine("List of courses with students\n");
 				foreach (Course c in courses)
 				{
-					ConsoleUI.showLine(c);
+					ConsoleUI.ShowLine(c);
 
 					ICollection<Student> CourseStudents = c.Students.ToList();
 					if (CourseStudents.Count() == 0)
 					{
-						ConsoleUI.showLine("->this course has not students\n");
+						ConsoleUI.ShowLine("->this course has not students\n");
 					}
 					else
 					{
 						
 						foreach (Student s in CourseStudents)
 						{
-							ConsoleUI.showMessage("->");
-							ConsoleUI.showLine(s);
+							ConsoleUI.ShowMessage("->");
+							ConsoleUI.ShowLine(s);
 						}
-						ConsoleUI.changeLine();
+						ConsoleUI.ChangeLine();
 					}
 				}
 			}
@@ -162,7 +162,7 @@ namespace IndividualProject.Manager
 
 		public void Update()
 		{
-			ConsoleUI.showLine("Update is not available for this connection, please choose create or delete instead");
+			ConsoleUI.ShowLine("Update is not available for this connection, please choose create or delete instead");
 		}
 
 		public void Delete()
@@ -174,36 +174,36 @@ namespace IndividualProject.Manager
 
 			if (courses.Count() == 0)
 			{
-				ConsoleUI.showLine("No courses yet");
+				ConsoleUI.ShowLine("No courses yet");
 			}
 			else
 			{
-				ConsoleUI.showLine("List of courses with students\n");
+				ConsoleUI.ShowLine("List of courses with students\n");
 				foreach (Course c in courses)
 				{
-					ConsoleUI.showLine(c);
+					ConsoleUI.ShowLine(c);
 
 					ICollection<Student> CourseStudents = c.Students.ToList();
 					if (CourseStudents.Count() == 0)
 					{
-						ConsoleUI.showLine("->this course has not students\n");
+						ConsoleUI.ShowLine("->this course has not students\n");
 					}
 					else
 					{
 
 						foreach (Student s in CourseStudents)
 						{
-							ConsoleUI.showMessage("->");
-							ConsoleUI.showLine(s);
+							ConsoleUI.ShowMessage("->");
+							ConsoleUI.ShowLine(s);
 						}
-						ConsoleUI.changeLine();
+						ConsoleUI.ChangeLine();
 					}
 				}
 			}
 
-			ConsoleUI.changeLine();
+			ConsoleUI.ChangeLine();
 
-			ConsoleUI.showLine("press 0 anytime to exit");
+			ConsoleUI.ShowLine("press 0 anytime to exit");
 
 			exit = ConsoleUI.GetInt(out int selectedStudent, "give student id to disconnect: ");
 			if (exit)
@@ -219,7 +219,7 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showLine($"NO STUDENT FOUND FOR ID {selectedStudent}");
+				ConsoleUI.ShowLine($"NO STUDENT FOUND FOR ID {selectedStudent}");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -238,7 +238,7 @@ namespace IndividualProject.Manager
 			}
 			catch (Exception)
 			{
-				ConsoleUI.showLine($"NO COURSE FOUND FOR ID {selectedCourse}");
+				ConsoleUI.ShowLine($"NO COURSE FOUND FOR ID {selectedCourse}");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -247,7 +247,7 @@ namespace IndividualProject.Manager
 
 			if (courseHasNoStudent)
 			{
-				ConsoleUI.showLine("this course doesn't connect to this student");
+				ConsoleUI.ShowLine("this course doesn't connect to this student");
 				//ConsoleUI.ReadKey();
 				//return;
 			}
@@ -256,7 +256,7 @@ namespace IndividualProject.Manager
 
 			if (studentHasNoCourse)
 			{
-				ConsoleUI.showLine("this student doesn't connect to this course");
+				ConsoleUI.ShowLine("this student doesn't connect to this course");
 				ConsoleUI.ReadKey();
 				return;
 			}
@@ -265,11 +265,11 @@ namespace IndividualProject.Manager
 
 			if (result == 0)
 			{
-				ConsoleUI.showLine("connection could NOT be removed");
+				ConsoleUI.ShowLine("connection could NOT be removed");
 			}
 			else
 			{
-				ConsoleUI.showLine("connection removed");
+				ConsoleUI.ShowLine("connection removed");
 				AssignmentPerStudentManager apsm = new AssignmentPerStudentManager();
 				apsm.DeleteByStudent(selectedStudent, selectedCourse);
 			}
@@ -278,12 +278,12 @@ namespace IndividualProject.Manager
 
 		public void ShowCRUDMenu()
 		{
-			ConsoleUI.showLine($"select action for students per course");
-			ConsoleUI.showLine("1. Create");
-			ConsoleUI.showLine("2. Read");
-			ConsoleUI.showLine("3. Update");
-			ConsoleUI.showLine("4. Delete");
-			ConsoleUI.showLine("0. Exit");
+			ConsoleUI.ShowLine($"select action for students per course");
+			ConsoleUI.ShowLine("1. Create");
+			ConsoleUI.ShowLine("2. Read");
+			ConsoleUI.ShowLine("3. Update");
+			ConsoleUI.ShowLine("4. Delete");
+			ConsoleUI.ShowLine("0. Exit");
 		}
 	}
 }
