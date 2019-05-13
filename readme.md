@@ -4,7 +4,7 @@
 
 Task: Create a program that manages a school (DB, roles, password hashing)
 
-Program stores all information to DB using Entity Framework 6
+Program stores all information to DB using Entity Framework 6.  
 Program uses hashing to store user passwords and ReadLine to mask password at register and login
 
 Program starts with an empty DB, checks if a HeadMaster is present and if not
